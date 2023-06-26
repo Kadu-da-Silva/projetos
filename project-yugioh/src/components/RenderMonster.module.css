@@ -1,0 +1,60 @@
+.containerName {
+  border: 1px solid white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.containerName h1 {
+  font-size: 22pt;
+}
+
+.containerName img {
+  margin-top: 15px;
+}
+
+.containerLevel {
+  margin-top: 10px;
+  position: relative;
+  right: 70px;
+  text-align: right;
+}
+
+.containerType {
+  position: relative;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.containerAtk {
+  margin-top: 10px;
+  position: relative;
+  text-align: right;
+}
+
+.containerAtk span {
+  margin-left: 20px;
+}
+
+.containerDesc {
+  border-bottom: 1px solid white;
+  text-align: justify;
+}
+
+.containerInfos {
+  border: 2px solid white;
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.containerSet {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.set {
+  border: 1px solid white;
+  width: 180px;
+}
