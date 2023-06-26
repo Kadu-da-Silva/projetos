@@ -8,15 +8,17 @@ import fire from '../images/fire.png'
 import light from '../images/light.png'
 import water from '../images/water.png'
 import wind from '../images/wind.png'
+import spell from '../images/spell.png'
+import trap from '../images/trap.png'
 
-import style from './RenderMonster.module.css'
+import style from './RenderDetails.module.css'
 
 type Props = {
   card: CardDetails
 }
 
-export default function RenderMonster({card}:Props) {
-    const { name, type, desc, atk, def, linkval, level, race, attribute, card_sets, card_images, card_prices } = card;
+export default function RenderDetails({card}:Props) {
+    const { name, type, archetype, desc, atk, def, linkval, level, race, attribute, frameType, card_sets, card_images, card_prices } = card;
     console.log(card);
     
 
@@ -36,6 +38,8 @@ export default function RenderMonster({card}:Props) {
     if (attribute === 'LIGHT') return <div><img src={light} alt="" /></div>
     if (attribute === 'WATER') return <div><img src={water} alt="" /></div>
     if (attribute === 'WIND') return <div><img src={wind} alt="" /></div>
+    if (frameType === 'spell') return <div><img src={spell} alt="" /></div>
+    if (frameType === 'trap') return <div><img src={trap} alt="" /></div>
   }
 
   const renderCardSets = () => {
@@ -77,10 +81,31 @@ export default function RenderMonster({card}:Props) {
     )
   }
 
+  const renderType = () => {
+    const words = type.split(' ')
+    console.log(words);
+
+    if (words.length > 2) {
+      return (
+        <div className={style.containerType}>
+          <p>{race} / {words[0]} / {words[1]}</p>
+        </div>
+      )
+    }
+    return (
+      <div className={style.containerType}>
+        <p>{race} / {words[0]}</p>
+      </div>
+    )
+  }
+
+  // Verifica se só tem valores 0 na lista
+  const prices = card_prices[0];
+  const hasPositivePrice = Object.values(prices).some(value => parseFloat(value) > 0);
+
   const renderPrices = () => {
     return (
       <div className={style.containerPrices}>
-        <h2>Tabela de Preços</h2>
         <table>
           <thead>
             <tr>
@@ -118,21 +143,29 @@ export default function RenderMonster({card}:Props) {
       </div >
       {renderImageCut()}
       <div className={style.containerInfos}>
-        <div className={style.containerType}>
-          <span>{type} / {race}</span>
-        </div>
+        {renderType()}
         <div className={style.containerDesc}>
           <p>{desc}</p>
         </div>
         <div className={style.containerAtk}>
-          <span>ATK/{atk}</span>
+          {atk && <span>ATK/{atk}</span>}
           {def >= 0 && <span>DEF/{def}</span>}
           {linkval && <span>LINK-{linkval}</span>}
         </div>
       </div>
-      <h2>Como Obter:</h2>
-      {renderCardSets()}
-      {renderPrices()}
+      {card_sets && (
+        <>
+          <h2>How to get it</h2>
+          {renderCardSets()}
+        </>
+      )}
+      {hasPositivePrice && (
+        <>
+          <h2>Price List</h2>
+          {renderPrices()}
+        </>
+      )}
+      {archetype && <h2>Archetype: {archetype}</h2>}
       {renderImageCard()}
     </div>
   )

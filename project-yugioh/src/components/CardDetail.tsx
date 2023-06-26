@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import YugiohContext from '../context/YugiohContext';
 import { useParams } from 'react-router-dom';
 import { CardDetails } from '../types/type';
-import RenderMonster from './RenderMonster';
+import RenderDetails from './RenderDetails';
 
 export default function CardDetail() {
   const {cardList} = useContext(YugiohContext)
@@ -21,7 +21,7 @@ export default function CardDetail() {
   return (
     <>
       <section>
-        {card && <RenderMonster card={card} />}
+        {card && <RenderDetails card={card} />}
       </section>
     </>
   );

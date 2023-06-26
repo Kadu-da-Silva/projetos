@@ -27,6 +27,7 @@ export type CardDetails = {
   id: number;
   name: string;
   type: string;
+  archetype: string;
   desc: string;
   atk: number;
   def: number;

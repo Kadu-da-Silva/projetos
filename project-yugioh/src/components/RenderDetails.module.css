@@ -56,5 +56,27 @@
 
 .set {
   border: 1px solid white;
+  padding: 5px;
   width: 180px;
+}
+
+.containerPrices {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.containerPrices table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.containerPrices table th, td {
+  border: 1px solid white;
+  margin: 10px;
+  padding: 5px;
+}
+
+.containerPrices tr:nth-child(even) {
+  background-color: #f9f9f9;
 }
