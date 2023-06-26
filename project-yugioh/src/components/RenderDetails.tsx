@@ -1,15 +1,7 @@
 import { CardDetails } from '../types/type';
+import { renderAttribute } from './utils/renderElements';
 
 import star from '../images/star-level.png'
-import dark from '../images/dark.png'
-import divine from '../images/divine.png'
-import earth from '../images/earth.png'
-import fire from '../images/fire.png'
-import light from '../images/light.png'
-import water from '../images/water.png'
-import wind from '../images/wind.png'
-import spell from '../images/spell.png'
-import trap from '../images/trap.png'
 
 import style from './RenderDetails.module.css'
 
@@ -28,18 +20,6 @@ export default function RenderDetails({card}:Props) {
       stars.push(<img key={i} src={star} alt='Nível' />)
     }
     return <div>{stars}</div>
-  }
-
-  const renderAttribute = () => {
-    if (attribute === 'DARK') return <div><img src={dark} alt="" /></div>
-    if (attribute === 'DIVINE') return <div><img src={divine} alt="" /></div>
-    if (attribute === 'EARTH') return <div><img src={earth} alt="" /></div>
-    if (attribute === 'FIRE') return <div><img src={fire} alt="" /></div>
-    if (attribute === 'LIGHT') return <div><img src={light} alt="" /></div>
-    if (attribute === 'WATER') return <div><img src={water} alt="" /></div>
-    if (attribute === 'WIND') return <div><img src={wind} alt="" /></div>
-    if (frameType === 'spell') return <div><img src={spell} alt="" /></div>
-    if (frameType === 'trap') return <div><img src={trap} alt="" /></div>
   }
 
   const renderCardSets = () => {
@@ -61,7 +41,7 @@ export default function RenderDetails({card}:Props) {
     return (
       <div className={style.containerImage}>
         {card_images?.map((img) => (
-          <div key={img.id}>
+          <div key={img.id} className={style.cardImg}>
             <img src={img.image_url_cropped} alt="Imagem cortada" />
           </div>
         ))}
@@ -133,14 +113,18 @@ export default function RenderDetails({card}:Props) {
   }
 
   return (
-    <div className={style.container}>
+    <div className={style[frameType]}>
       <div className={style.containerName}>
         <h1>{name}</h1>
-        {renderAttribute()}
+        <div>
+          <img 
+            src={renderAttribute(attribute, frameType)} 
+            alt={attribute ? `Attribute: ${attribute}` : `Attribute: ${frameType}` } />
+        </div>
       </div>
       <div className={style.containerLevel}>
       {renderLevel()}
-      </div >
+      </div>
       {renderImageCut()}
       <div className={style.containerInfos}>
         {renderType()}

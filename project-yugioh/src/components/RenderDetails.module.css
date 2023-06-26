@@ -1,23 +1,47 @@
 .containerName {
   border: 1px solid white;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  position: relative;
+  top: 30px;
+  left: 5%;
+  width: 90%;
 }
 
 .containerName h1 {
   font-size: 22pt;
+  position: relative;
+  left: 5%;
 }
 
-.containerName img {
+.containerName div {
   margin-top: 15px;
+  position: relative;
+  left: 60%;
 }
 
 .containerLevel {
   margin-top: 10px;
   position: relative;
   right: 70px;
+  top: 40px;
   text-align: right;
+}
+
+.containerImage {
+  position: relative;
+  top: 50px;
+}
+
+.cardImg {
+  border: 10px solid #6f7082;
+  border-radius: 3px;
+  box-shadow: 0 0 20px black;
+  display: inline-block;
+}
+
+.cardImg img {
+  box-shadow: 0 0 20px black;
+  display: block;
 }
 
 .containerType {
@@ -79,4 +103,11 @@
 
 .containerPrices tr:nth-child(even) {
   background-color: #f9f9f9;
+}
+
+.normal {
+  background-image: url(../images/normal.png);
+  background-size: cover;
+  color: black;
+  width: 750px;
 }
