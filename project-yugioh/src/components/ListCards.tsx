@@ -39,9 +39,9 @@ export default function ListCards({ propType }: Props) {
         ))}
       </section>
       {itemsToShow < card.length && (
-          <button onClick={() => setItemsToShow(itemsToShow + 18)}>
-            Mostrar Mais
-          </button>
+        <button onClick={() => setItemsToShow(itemsToShow + 18)}>
+          Mostrar Mais
+        </button>
       )}
     </>
   )
