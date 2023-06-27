@@ -2,9 +2,9 @@ import { useContext, useEffect } from 'react';
 import YugiohContext from '../context/YugiohContext';
 import { useParams } from 'react-router-dom';
 import { CardDetails } from '../types/type';
-import RenderDetails from './RenderDetails';
+import RenderDetails from '../components/RenderDetails';
 
-export default function CardDetail() {
+export default function Card() {
   const {cardList} = useContext(YugiohContext)
   const {id: idRoute} = useParams()
 

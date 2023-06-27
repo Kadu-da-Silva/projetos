@@ -4,7 +4,7 @@ import Monsters from './pages/Monsters';
 import Spells from './pages/Spells';
 import Traps from './pages/Traps';
 import Home from './pages/Home';
-import CardDetail from './components/CardDetail';
+import Card from './pages/Card';
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
       <Route path='/monsters' element={ <Monsters />} />
       <Route path='/spells' element={ <Spells />} />
       <Route path='/traps' element={ <Traps />} />
-      <Route path='/card/:id' element={ <CardDetail />} />
+      <Route path='/card/:id' element={ <Card />} />
     </Routes>
   )
 }

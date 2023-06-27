@@ -257,3 +257,19 @@
   color: Black;
   width: 750px;
 }
+
+.spell {
+  background-image: url(../images/b-spell.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: Black;
+  width: 750px;
+}
+
+.trap {
+  background-image: url(../images/b-trap.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: Black;
+  width: 750px;
+}

@@ -12,7 +12,7 @@ type Props = {
 
 export default function RenderDetails({card}:Props) {
     const { name, type, archetype, desc, atk, def, linkval, level, race, attribute, frameType, card_sets, card_images, card_prices } = card;
-    console.log(card);
+    // console.log(card);
     
 
   const renderLevel = () => {
@@ -64,7 +64,6 @@ export default function RenderDetails({card}:Props) {
 
   const renderType = () => {
     const words = type.split(' ')
-    console.log(words);
 
     if (words.length > 2) {
       return (
