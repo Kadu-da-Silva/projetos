@@ -1,17 +1,14 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../types/type'
-import YugiohContext from '../context/YugiohContext'
 
 import style from './ListCards.module.css'
-import { renderImage } from './utils/renderElements'
 
 type Props = {
-  cardType: string;
+  cards: Card[];
 }
 
-export default function ListCards({ cardType }: Props) {
-  const { cardList } = useContext(YugiohContext)
+export default function ListCards({ cards }: Props) {
   const [itemsToShow, setItemsToShow] = useState(() => {
     const storedItemsToShow = localStorage.getItem('itemsToShow');
     return storedItemsToShow ? parseInt(storedItemsToShow) : 18;
@@ -21,19 +18,15 @@ export default function ListCards({ cardType }: Props) {
     localStorage.setItem('itemsToShow', itemsToShow.toString());
   }, [itemsToShow]);
 
-  const cards = cardList.filter((card: Card) => card.type.includes(cardType))
-
-  if (!cardList) {
-    return <div>Loading...</div>
-  }
-
   return (
     <>
       <section className={style.container}>
         {cards.slice(0, itemsToShow).map(({id, name, card_images}) => (
           <div key={id} className={style.card}>
             <Link to={`/card/${id}`} target="_blank">
-              <img src={renderImage(card_images)} alt={name} />
+              {card_images.map(({image_url}) => (
+                <img src={image_url} alt={name} />
+              ))}
             </Link>
           </div>
         ))}

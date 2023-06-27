@@ -1,12 +1,23 @@
-import ListCards from '../components/ListCards'
+import { useContext } from 'react';
+import YugiohContext from '../context/YugiohContext';
+import { Card } from '../types/type';
+
 import Header from './../components/Header';
+import ListCards from '../components/ListCards'
+
 
 export default function Spells() {
+  const { cardList } = useContext(YugiohContext)
+  const cards = cardList.filter((card: Card) => card.type.includes('Spell'))
+
+  if (!cardList) {
+    return <div>Loading...</div>
+  }
+
   return (
     <>
       <Header />
-      <div>Spells</div>
-      <ListCards cardType='Spell'/>
+      <ListCards cards={cards}/>
     </>
   )
 }

@@ -1,5 +1,3 @@
-import { CardImage } from '../../types/type'
-
 // Attributes
 import dark from '../../images/dark.png'
 import divine from '../../images/divine.png'
@@ -44,10 +42,4 @@ export const renderBackground = (frameType: string) => {
   if (frameType === 'link') return link
   if (frameType === 'spell') return bSpell
   if (frameType === 'trap') return bTrap
-}
-
-// Images Cards
-export  const renderImage = (img:CardImage) => {
-  const { image_url } = img[0]
-  return image_url
 }

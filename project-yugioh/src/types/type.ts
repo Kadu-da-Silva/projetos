@@ -57,12 +57,3 @@ export type CardDetails = {
     coolstuffinc_price: string;
   }[];
 }
-
-export type CardImage = [
-  {
-    "id": 6983839,
-    "image_url": "https://images.ygoprodeck.com/images/cards/6983839.jpg",
-    "image_url_small": "https://images.ygoprodeck.com/images/cards_small/6983839.jpg",
-    "image_url_cropped": "https://images.ygoprodeck.com/images/cards_cropped/6983839.jpg"
-  }
-]
