@@ -21,7 +21,7 @@ export default function ListCards({ cardType }: Props) {
     localStorage.setItem('itemsToShow', itemsToShow.toString());
   }, [itemsToShow]);
 
-  const card = cardList.filter((card: Card) => card.type.includes(cardType))
+  const cards = cardList.filter((card: Card) => card.type.includes(cardType))
 
   if (!cardList) {
     return <div>Loading...</div>
@@ -30,7 +30,7 @@ export default function ListCards({ cardType }: Props) {
   return (
     <>
       <section className={style.container}>
-        {card.slice(0, itemsToShow).map(({id, name, card_images}) => (
+        {cards.slice(0, itemsToShow).map(({id, name, card_images}) => (
           <div key={id} className={style.card}>
             <Link to={`/card/${id}`} target="_blank">
               <img src={renderImage(card_images)} alt={name} />
@@ -38,7 +38,7 @@ export default function ListCards({ cardType }: Props) {
           </div>
         ))}
       </section>
-      {itemsToShow < card.length && (
+      {itemsToShow < cards.length && (
         <button onClick={() => setItemsToShow(itemsToShow + 18)}>
           Mostrar Mais
         </button>
