@@ -62,7 +62,7 @@ export default function ListCards({ cards }: Props) {
           <div key={id} className={style.card}>
             <Link to={`/card/${id}`} target="_blank">
               {card_images.map(({image_url}) => (
-                <img src={image_url} alt={name} />
+                <img key={id} src={image_url} alt={name} />
               ))}
             </Link>
           </div>
