@@ -6,7 +6,7 @@ export default function Monsters() {
     <>
       <Header />
       <div>Monsters</div>
-      <ListCards propType='Monster'/>
+      <ListCards cardType='Monster'/>
     </>
   )
 }

@@ -7,10 +7,10 @@ import style from './ListCards.module.css'
 import { renderImage } from './utils/renderElements'
 
 type Props = {
-  propType: string;
+  cardType: string;
 }
 
-export default function ListCards({ propType }: Props) {
+export default function ListCards({ cardType }: Props) {
   const { cardList } = useContext(YugiohContext)
   const [itemsToShow, setItemsToShow] = useState(() => {
     const storedItemsToShow = localStorage.getItem('itemsToShow');
@@ -21,7 +21,7 @@ export default function ListCards({ propType }: Props) {
     localStorage.setItem('itemsToShow', itemsToShow.toString());
   }, [itemsToShow]);
 
-  const card = cardList.filter((card: Card) => card.type.includes(propType))
+  const card = cardList.filter((card: Card) => card.type.includes(cardType))
 
   if (!cardList) {
     return <div>Loading...</div>

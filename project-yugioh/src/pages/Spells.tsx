@@ -6,7 +6,7 @@ export default function Spells() {
     <>
       <Header />
       <div>Spells</div>
-      <ListCards propType='Spell'/>
+      <ListCards cardType='Spell'/>
     </>
   )
 }

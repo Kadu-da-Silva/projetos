@@ -6,7 +6,7 @@ export default function Traps() {
     <>
       <Header />
       <div>Traps</div>
-      <ListCards propType='Trap' />
+      <ListCards cardType='Trap' />
     </>
   )
 }
