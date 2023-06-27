@@ -13,7 +13,7 @@ export default function ListCards({ propType }: Props) {
   const { cardList } = useContext(YugiohContext)
   const [itemsToShow, setItemsToShow] = useState(() => {
     const storedItemsToShow = localStorage.getItem('itemsToShow');
-    return storedItemsToShow ? parseInt(storedItemsToShow) : 20;
+    return storedItemsToShow ? parseInt(storedItemsToShow) : 18;
   })
 
   useEffect(() => {
@@ -46,7 +46,7 @@ export default function ListCards({ propType }: Props) {
         ))}
       </section>
       {itemsToShow < traps.length && (
-          <button onClick={() => setItemsToShow(itemsToShow + 20)}>
+          <button onClick={() => setItemsToShow(itemsToShow + 18)}>
             Mostrar Mais
           </button>
       )}

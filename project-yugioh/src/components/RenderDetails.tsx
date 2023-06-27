@@ -2,6 +2,7 @@ import { CardDetails } from '../types/type';
 import { renderAttribute } from './utils/renderElements';
 
 import star from '../images/star-level.png'
+import rank from '../images/star-rank.png'
 
 import style from './RenderDetails.module.css'
 
@@ -17,9 +18,9 @@ export default function RenderDetails({card}:Props) {
   const renderLevel = () => {
     const stars = [];
     for (let i = 0; i < level; i++) {
-      stars.push(<img key={i} src={star} alt='Nível' />)
+      stars.push(<img key={i} src={frameType === 'xyz' ? rank : star} alt='Nível' />)
     }
-    return <div>{stars}</div>
+    return <div className={frameType === 'xyz' ? style.ranks : style.stars}>{stars}</div>
   }
 
   const renderCardSets = () => {
@@ -68,7 +69,7 @@ export default function RenderDetails({card}:Props) {
     if (words.length > 2) {
       return (
         <div className={style.containerType}>
-          <p>{race} / {words[0]} / {words[1]}</p>
+          <span>{race} / {words[0]} / {words[1]}</span>
         </div>
       )
     }
@@ -113,44 +114,46 @@ export default function RenderDetails({card}:Props) {
   }
 
   return (
-    <div className={style[frameType]}>
-      <div className={style.containerName}>
-        <h1>{name}</h1>
-        <div>
-          <img 
-            src={renderAttribute(attribute, frameType)} 
-            alt={attribute ? `Attribute: ${attribute}` : `Attribute: ${frameType}` } />
+    <section className={style.section}>
+      <div className={style[frameType]}>
+        <div className={style.containerName}>
+          <h1>{name}</h1>
+          <div>
+            <img
+              src={renderAttribute(attribute, frameType)}
+              alt={attribute ? `Attribute: ${attribute}` : `Attribute: ${frameType}` } />
+          </div>
         </div>
-      </div>
-      <div className={style.containerLevel}>
-      {renderLevel()}
-      </div>
-      {renderImageCut()}
-      <div className={style.containerInfos}>
-        {renderType()}
-        <div className={style.containerDesc}>
-          <p>{desc}</p>
+        <div className={style.containerLevel}>
+        {renderLevel()}
         </div>
-        <div className={style.containerAtk}>
-          {atk && <span>ATK/{atk}</span>}
-          {def >= 0 && <span>DEF/{def}</span>}
-          {linkval && <span>LINK-{linkval}</span>}
+        {renderImageCut()}
+        <div className={style.containerInfos}>
+          {renderType()}
+          <div className={style.containerDesc}>
+            <p>{desc}</p>
+          </div>
+          <div className={style.containerAtk}>
+            {atk && <span>ATK/{atk}</span>}
+            {def >= 0 && <span>DEF/{def}</span>}
+            {linkval && <span>LINK-{linkval}</span>}
+          </div>
         </div>
+        {card_sets && (
+          <div className={style.containerChild}>
+            <h2>How to get it</h2>
+            {renderCardSets()}
+          </div>
+        )}
+        {hasPositivePrice && (
+          <div className={style.containerChild}>
+            <h2>Price List</h2>
+            {renderPrices()}
+          </div>
+        )}
+        {archetype && <h2 className={style.archetype}>Archetype: {archetype}</h2>}
+        {renderImageCard()}
       </div>
-      {card_sets && (
-        <>
-          <h2>How to get it</h2>
-          {renderCardSets()}
-        </>
-      )}
-      {hasPositivePrice && (
-        <>
-          <h2>Price List</h2>
-          {renderPrices()}
-        </>
-      )}
-      {archetype && <h2>Archetype: {archetype}</h2>}
-      {renderImageCard()}
-    </div>
+    </section>
   )
 }

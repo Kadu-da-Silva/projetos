@@ -1,5 +1,8 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@300;600&display=swap');
+
 .containerName {
-  border: 1px solid white;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.3);
   display: flex;
   position: relative;
   top: 30px;
@@ -15,8 +18,12 @@
 
 .containerName div {
   margin-top: 15px;
-  position: relative;
-  left: 60%;
+  position: absolute;
+  left: 88%;
+}
+
+.containerName div img {
+  width: 70px;
 }
 
 .containerLevel {
@@ -25,6 +32,20 @@
   right: 70px;
   top: 40px;
   text-align: right;
+}
+
+.stars img {
+  margin: 3px;
+}
+
+.ranks {
+  text-align: left;
+  position: relative;
+  left: 120px;
+}
+
+.ranks img {
+  margin: 3px;
 }
 
 .containerImage {
@@ -42,13 +63,14 @@
 .cardImg img {
   box-shadow: 0 0 20px black;
   display: block;
+  width: 600px;
 }
 
 .containerType {
   position: relative;
   text-align: left;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .containerAtk {
@@ -58,28 +80,44 @@
 }
 
 .containerAtk span {
+  font-weight: 600;
   margin-left: 20px;
 }
 
 .containerDesc {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid black;
   text-align: justify;
 }
 
 .containerInfos {
-  border: 2px solid white;
-  margin-top: 10px;
+  background-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.3);
+  top: 60px;
+  margin: 25px;
   padding: 10px;
+  position: relative;
+}
+
+.containerChild h2 {
+  text-transform: uppercase;
+  position: relative;
+  top: 60px;
 }
 
 .containerSet {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
+  position: relative;
+  top: 50px;
 }
 
 .set {
-  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5), -4px -4px 10px rgba(255, 255, 255, 0.3);
+  color: white;
+  margin: 5px;
   padding: 5px;
   width: 180px;
 }
@@ -87,27 +125,135 @@
 .containerPrices {
   display: flex;
   justify-content: center;
+  margin: 10px;
   margin-bottom: 50px;
+  position: relative;
+  top: 50px;
 }
 
 .containerPrices table {
+  background-color: rgba(0, 0, 0, 0.3);
   border-collapse: collapse;
+  color: white;
   width: 100%;
 }
 
 .containerPrices table th, td {
-  border: 1px solid white;
+  border: 1px solid rgba(0, 0, 0, 0.3);
   margin: 10px;
   padding: 5px;
 }
 
-.containerPrices tr:nth-child(even) {
-  background-color: #f9f9f9;
+.containerAttribute {
+  position: relative;
+  top: 50px;
+}
+
+.archetype {
+  position: relative;
+  top: 10px;
+}
+
+.containerImageCard img {
+  margin-top: 10px;
+  width: 200px;
+}
+
+.containerImageCard img:hover {
+  width: auto;
+}
+
+.section {
+  border: 10px solid #6f7082;
+  border-radius: 3px;
+  box-shadow: 0 0 20px black;
+  font-family: 'Ysabeau SC', sans-serif;
 }
 
 .normal {
   background-image: url(../images/normal.png);
   background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
   color: black;
+  width: 750px;
+}
+
+.effect {
+  background-image: url(../images/effect.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: black;
+  width: 750px;
+}
+
+.fusion {
+  background-image: url(../images/fusion.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: black;
+  width: 750px;
+}
+
+.synchro {
+  background-image: url(../images/synchro.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: black;
+  width: 750px;
+}
+
+.link {
+  background-image: url(../images/link.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: black;
+  width: 750px;
+}
+
+.xyz {
+  background-image: url(../images/xyz.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: white;
+  width: 750px;
+}
+
+.normal_pendulum {
+  background-image: url(../images/normal_pendulum.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: Black;
+  width: 750px;
+}
+
+.effect_pendulum {
+  background-image: url(../images/effect_pendulum.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: Black;
+  width: 750px;
+}
+
+.fusion_pendulum {
+  background-image: url(../images/fusion_pendulum.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: Black;
+  width: 750px;
+}
+
+.synchro_pendulum {
+  background-image: url(../images/synchro_pendulum.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: Black;
+  width: 750px;
+}
+
+.xyz_pendulum {
+  background-image: url(../images/xyz_pendulum.png);
+  background-size: cover;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 1);
+  color: Black;
   width: 750px;
 }
