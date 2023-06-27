@@ -33,7 +33,7 @@ export default function ListCards({ propType }: Props) {
         {card.slice(0, itemsToShow).map(({id, name, card_images}) => (
           <div key={id} className={style.card}>
             <Link to={`/card/${id}`} target="_blank">
-            <img src={renderImage(card_images)} alt={name} />
+              <img src={renderImage(card_images)} alt={name} />
             </Link>
           </div>
         ))}
