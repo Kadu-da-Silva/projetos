@@ -5,7 +5,6 @@ import YugiohContext from '../context/YugiohContext'
 import { Card } from '../types/type'
 import { imgAttribute } from '../components/utils/renderElements'
 import useHandleChange from '../hooks/useHandleChange'
-import useHandleCheckbox from '../hooks/useHandleCheckbox'
 import useHandleRadio from '../hooks/useHandleRadio'
 
 import rankImg from '../images/star-rank.png'
@@ -19,7 +18,6 @@ export default function Monsters() {
   // const [filters, setFilters] = useState([{}])
   const filterRace = useHandleChange('')
   const filterType = useHandleChange('')
-  const filterNormal = useHandleCheckbox(false)
   const filterAtr = useHandleRadio('')
   const filterRankOrLevel = useHandleRadio('')
   const filterLevel = useHandleRadio('')
@@ -33,23 +31,22 @@ export default function Monsters() {
     const filteredCards = cardsMonsters.filter((card: Card) => {
       const raceMatch = filterRace.value ? card.race === filterRace.value : true
       const typeMatch = filterType.value ? card.type.includes(filterType.value) : true
-      const effectMatch = filterNormal.value ? card.type.includes('Normal') : true
       const attributeMatch = filterAtr.value ? card.attribute === filterAtr.value : true
       const filterMonstersRank = filterRankOrLevel.value === 'rank' ? card.type.includes('XYZ') : true
       const filterMonstersLevel = filterRankOrLevel.value === 'level' ? !card.type.includes('XYZ') : true
       const filterLevelMatch = filterLevel.value ? card.level === Number(filterLevel.value) : true
-      return raceMatch && typeMatch && effectMatch && attributeMatch && filterMonstersRank && filterLevelMatch && filterMonstersLevel
+      return raceMatch && typeMatch && attributeMatch && filterMonstersRank && filterLevelMatch && filterMonstersLevel
     })
 
     setCards(filteredCards)
 
-    if (filteredCards.length === 0 && filterType.value && filterRace.value && filterNormal.value && filterAtr.value && filterRankOrLevel.value && filterLevel.value) {
+    if (filteredCards.length === 0 && filteredCards) {
       setFilterError(true)
     } else {
       setFilterError(false)
     }
 
-  }, [cardList, filterRace.value, filterType.value, filterNormal.value, filterAtr.value, filterRankOrLevel.value, filterLevel.value])
+  }, [cardList, filterRace.value, filterType.value, filterAtr.value, filterRankOrLevel.value, filterLevel.value])
   
 
   // const handleFilter = () => {
@@ -86,7 +83,7 @@ export default function Monsters() {
   };
   
   const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
-  const types = ["", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
+  const types = ["", "Normal", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
   const attributes = ["DARK", "DIVINE", "EARTH", "FIRE", "LIGHT", "WATER", "WIND"]
   const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
   const levels = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]
@@ -104,29 +101,22 @@ export default function Monsters() {
     <>
       <Header />
       <div>
-        <select
-          value={filterRace.value}
-          onChange={filterRace.handleChange}
-        >
-          {races.map((race) => (
-            <option key={race} value={race}>{race}</option>
-          ))}
-        </select>
-        <select
-          value={filterType.value}
-          onChange={filterType.handleChange}
-        >
-          {types.map((type) => (
-            <option key={type} value={type}>{type}</option>
-          ))}
-        </select>
-          <label>
-            <input
-              type="checkbox"
-              checked={filterNormal.value} 
-              onChange={filterNormal.handleChange} 
-            /> Normal
-          </label>
+          <select
+            value={filterRace.value}
+            onChange={filterRace.handleChange}
+          >
+            {races.map((race) => (
+              <option key={race} value={race}>{race}</option>
+            ))}
+          </select>
+          <select
+            value={filterType.value}
+            onChange={filterType.handleChange}
+          >
+            {types.map((type) => (
+              <option key={type} value={type}>{type}</option>
+            ))}
+          </select>
         <div>
           {attributes.map((attribute) => (
             <label htmlFor={attribute} key={attribute}>
