@@ -112,26 +112,30 @@ export default function Monsters() {
           ))}
         </div>
         <div className={style.containerRankLevel}>
-          <label htmlFor="rank">
-            <input
-              id='rank'
-              type="radio"
-              value='rank'
-              checked={filterRankOrLevel.value === 'rank'}
-              onChange={() => console.log('change for rank')}
-              onClick={ () => handleTwoRadiosClick('rank', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
-            /> <img src={rankImg} alt="Rank" className={filterRankOrLevel.value === 'rank' ? style.imgLevel : style.imgAll}/>
-          </label>
-          <label htmlFor="level">
-            <input
-              id='level'
-              type="radio"
-              value='level'
-              checked={filterRankOrLevel.value === 'level'}
-              onChange={() => console.log('change for level')}
-              onClick={ () => handleTwoRadiosClick('level', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
-            /> <img src={levelImg} alt="Level" className={filterRankOrLevel.value === 'level' ? style.imgLevel : style.imgAll}/>
-          </label>
+          {filterType.value === 'XYZ' && (
+            <label htmlFor="rank">
+              <input
+                id='rank'
+                type="radio"
+                value='rank'
+                checked={filterRankOrLevel.value === 'rank'}
+                onChange={() => console.log('change for rank')}
+                onClick={ () => handleTwoRadiosClick('rank', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
+              /> <img src={rankImg} alt="Rank" className={filterRankOrLevel.value === 'rank' ? style.imgLevel : style.imgAll}/>
+            </label>
+          )}
+          {filterType.value !== 'XYZ' && filterType.value !== 'Link' && filterType.value && (
+            <label htmlFor="level">
+              <input
+                id='level'
+                type="radio"
+                value='level'
+                checked={filterRankOrLevel.value === 'level'}
+                onChange={() => console.log('change for level')}
+                onClick={ () => handleTwoRadiosClick('level', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
+              /> <img src={levelImg} alt="Level" className={filterRankOrLevel.value === 'level' ? style.imgLevel : style.imgAll}/>
+            </label>
+          )}
         </div>
         {filterRankOrLevel.value === 'rank' && (
           <div className={style.containerRanks}>
