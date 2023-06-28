@@ -52,20 +52,22 @@ export default function Monsters() {
   //     }
   //   ])
   // }
+  // console.log(cards);
+  
 
   const handleRadioClick = (attribute: string) => {
-    if (filterAtr.value === attribute.toUpperCase()) {
+    if (filterAtr.value === attribute) {
       // Se o input já estiver selecionado, desmarque-o
       filterAtr.setValue("");
     } else {
       // Caso contrário, marque-o com o valor do atributo
-      filterAtr.setValue(attribute.toUpperCase());
+      filterAtr.setValue(attribute);
     }
   };
   
   const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
   const types = ["", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
-  const attributes = ["dark", "divine", "earth", "fire", "light", "water", "wind"]
+  const attributes = ["DARK", "DIVINE", "EARTH", "FIRE", "LIGHT", "WATER", "WIND"]
   
   return (
     <>
@@ -100,12 +102,12 @@ export default function Monsters() {
               <input
                 id={attribute}
                 type="radio"
-                value={attribute.toLocaleUpperCase()}
+                value={attribute}
                 checked={filterAtr.value === attribute}
                 onChange={() => console.log('change')}
                 onClick={ () => handleRadioClick(attribute) }
               />
-              <img src={imgAttribute(attribute.toUpperCase())} alt={attribute} />
+              <img src={imgAttribute(attribute)} alt={attribute} />
             </label>
           ))}
         </div>
