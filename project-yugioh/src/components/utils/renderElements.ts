@@ -33,6 +33,16 @@ export const renderAttribute = (attribute: string, frameType: string) => {
   if (frameType === 'trap') return trap
 }
 
+export const imgAttribute = (attribute: string) => {
+  if (attribute === 'DARK') return dark
+  if (attribute === 'DIVINE') return divine
+  if (attribute === 'EARTH') return earth
+  if (attribute === 'FIRE') return fire
+  if (attribute === 'LIGHT') return light
+  if (attribute === 'WATER') return water
+  if (attribute === 'WIND') return wind
+}
+
 export const renderBackground = (frameType: string) => {
   if (frameType === 'normal') return normal
   if (frameType === 'effect') return effect

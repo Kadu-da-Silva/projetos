@@ -1,4 +1,4 @@
-import { CardDetails } from '../types/type';
+import { Card } from '../types/type';
 import { renderAttribute } from './utils/renderElements';
 
 import star from '../images/star-level.png'
@@ -7,7 +7,7 @@ import rank from '../images/star-rank.png'
 import style from './RenderDetails.module.css'
 
 type Props = {
-  card: CardDetails
+  card: Card
 }
 
 export default function RenderDetails({card}:Props) {
