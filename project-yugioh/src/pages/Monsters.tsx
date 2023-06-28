@@ -53,7 +53,7 @@ export default function Monsters() {
   //   ])
   // }
   const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
-  const types = ["", "Effect", "Fusion", "Ritual", "Synchro", "Xyz", "Pendulum", "Link"]
+  const types = ["", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
   const attributes = ["dark", "divine", "earth", "fire", "light", "water", "wind"]
   
   return (

@@ -13,7 +13,7 @@ type Props = {
 export default function ListCards({ cards }: Props) {
   const [itemsToShow, setItemsToShow] = useState(() => {
     const storedItemsToShow = localStorage.getItem('itemsToShow');
-    return storedItemsToShow ? parseInt(storedItemsToShow) : 18;
+    return storedItemsToShow ? parseInt(storedItemsToShow) : 12;
   })
   const [upIsVisible, setUpIsVisible] = useState(false);
   const [downIsVisible, setDownIsVisible] = useState(false);
@@ -27,7 +27,7 @@ export default function ListCards({ cards }: Props) {
       // Exibe o botão quando o usuário rolar além de um certo ponto da página
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       setUpIsVisible(scrollTop > 1000);
-      setDownIsVisible(scrollTop < 1000 && itemsToShow > 20);
+      setDownIsVisible(scrollTop < 1000 && itemsToShow > 18);
     };
 
     // Adiciona um listener para o evento de scroll
@@ -69,7 +69,7 @@ export default function ListCards({ cards }: Props) {
         ))}
       </section>
       {itemsToShow < cards.length && (
-        <button onClick={() => setItemsToShow(itemsToShow + 18)}>
+        <button onClick={() => setItemsToShow(itemsToShow + 12)}>
           Mostrar Mais
         </button>
       )}
