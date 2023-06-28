@@ -9,19 +9,18 @@ import useHandleRadio from '../hooks/useHandleRadio'
 
 import rankImg from '../images/star-rank.png'
 import levelImg from '../images/star-level.png'
-// import Button from '../components/Button'
+
+import style from './Monster.module.css'
 
 export default function Monsters() {
   const { cardList } = useContext(YugiohContext)
   const [cards, setCards] = useState<Card[]>([])
   const [filterError, setFilterError] = useState(false)
-  // const [filters, setFilters] = useState([{}])
   const filterRace = useHandleChange('')
   const filterType = useHandleChange('')
   const filterAtr = useHandleRadio('')
   const filterRankOrLevel = useHandleRadio('')
   const filterLevel = useHandleRadio('')
-  // const filterLevel = useHandleRadio('')
 
   useEffect(() => {
     const cardsMonsters = cardList.filter((card: Card) => card.type.includes('Monster'))
@@ -47,19 +46,6 @@ export default function Monsters() {
     }
 
   }, [cardList, filterRace.value, filterType.value, filterAtr.value, filterRankOrLevel.value, filterLevel.value])
-  
-
-  // const handleFilter = () => {
-  //   setFilters([
-  //     ...filters,
-  //     {
-  //       race: filterRace.value,
-  //       type: filterType.value,
-  //     }
-  //   ])
-  // }
-  // console.log(cards);
-  
 
   const handleRadioClick = (value: string, state: string, setState: { (value: SetStateAction<string>): void; (arg0: string): void }) => {
     if (state === value) {
@@ -87,37 +73,30 @@ export default function Monsters() {
   const attributes = ["DARK", "DIVINE", "EARTH", "FIRE", "LIGHT", "WATER", "WIND"]
   const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
   const levels = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]
-
-  // const renderLevelFilter = () => {
-  //   const levels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-
-  //   for (let i; i < levels.length; i++) {
-
-  //   }
-  // }
-  
   
   return (
     <>
       <Header />
-      <div>
-          <select
-            value={filterRace.value}
-            onChange={filterRace.handleChange}
-          >
-            {races.map((race) => (
-              <option key={race} value={race}>{race}</option>
-            ))}
-          </select>
-          <select
-            value={filterType.value}
-            onChange={filterType.handleChange}
-          >
-            {types.map((type) => (
-              <option key={type} value={type}>{type}</option>
-            ))}
-          </select>
-        <div>
+      <div className={style.containerFilters}>
+        <select
+          value={filterRace.value}
+          onChange={filterRace.handleChange}
+          className={style.race}
+        >
+          {races.map((race) => (
+            <option key={race} value={race}>{race ? race : 'SELECT BREED'}</option>
+          ))}
+        </select>
+        <select
+          value={filterType.value}
+          onChange={filterType.handleChange}
+          className={style.type}
+        >
+          {types.map((type) => (
+            <option key={type} value={type}>{type ? type : 'SELECT TYPE'}</option>
+          ))}
+        </select>
+        <div className={style.containerAttrs}>
           {attributes.map((attribute) => (
             <label htmlFor={attribute} key={attribute}>
               <input
@@ -128,11 +107,11 @@ export default function Monsters() {
                 onChange={() => console.log('change attribute')}
                 onClick={ () => handleRadioClick(attribute, filterAtr.value, filterAtr.setValue) }
               />
-              <img src={imgAttribute(attribute)} alt={attribute} />
+              <img src={imgAttribute(attribute)} alt={attribute} className={filterAtr.value === attribute ? style.imgAttr : style.imgAll}/>
             </label>
           ))}
         </div>
-        <div>
+        <div className={style.containerRankLevel}>
           <label htmlFor="rank">
             <input
               id='rank'
@@ -141,7 +120,7 @@ export default function Monsters() {
               checked={filterRankOrLevel.value === 'rank'}
               onChange={() => console.log('change for rank')}
               onClick={ () => handleTwoRadiosClick('rank', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
-            /> <img src={rankImg} alt="Rank" />
+            /> <img src={rankImg} alt="Rank" className={filterRankOrLevel.value === 'rank' ? style.imgLevel : style.imgAll}/>
           </label>
           <label htmlFor="level">
             <input
@@ -151,11 +130,11 @@ export default function Monsters() {
               checked={filterRankOrLevel.value === 'level'}
               onChange={() => console.log('change for level')}
               onClick={ () => handleTwoRadiosClick('level', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
-            /> <img src={levelImg} alt="Level" />
+            /> <img src={levelImg} alt="Level" className={filterRankOrLevel.value === 'level' ? style.imgLevel : style.imgAll}/>
           </label>
         </div>
         {filterRankOrLevel.value === 'rank' && (
-          <div>
+          <div className={style.containerRanks}>
             {ranks.map((rank) => (
               <label htmlFor={rank} key={rank}>
                 <input
@@ -165,13 +144,13 @@ export default function Monsters() {
                   checked={filterLevel.value === rank}
                   onChange={() => console.log('change rank')}
                   onClick={ () => handleRadioClick(rank, filterLevel.value, filterLevel.setValue) }
-                  /> <img src={rankImg} alt="Level" />
+                  /> <img src={rankImg} alt="Level" className={filterLevel.value === rank ? style.imgLevel : style.imgAll}/>
               </label>
             ))}
           </div>
         )}
         {filterRankOrLevel.value === 'level' && (
-          <div>
+          <div className={style.containerLevels}>
             {levels.map((level) => (
               <label htmlFor={level} key={level}>
                 <input
@@ -181,33 +160,13 @@ export default function Monsters() {
                   checked={filterLevel.value === level}
                   onChange={() => console.log('change level')}
                   onClick={ () => handleRadioClick(level, filterLevel.value, filterLevel.setValue) }
-                  /> <img src={levelImg} alt="Level" />
+                  /> <img src={levelImg} alt="Level" className={filterLevel.value === level ? style.imgLevel : style.imgAll}/>
               </label>
             ))}
           </div>
         )}
-        {/* <div>
-          {levels.map((level) => (
-            <label htmlFor={level} key={level}>
-              <input
-                id={level}
-                type="radio"
-                value={level}
-                checked={filterAtr.value === level}
-                onChange={() => console.log('change')}
-                onClick={ () => handleRadioClick(level) }
-              />
-              <img src={imgAttribute(level)} alt={level} />
-            </label>
-          ))}
-        </div> */}
       </div>
       {filterError && <div>No cards match your filter</div>}
-      {/* <Button 
-        classStyle='btn-filter'
-        onClick={ handleFilter }
-        label='Clear Filters'
-      /> */}
       <ListCards cards={cards}/>
     </>
   )

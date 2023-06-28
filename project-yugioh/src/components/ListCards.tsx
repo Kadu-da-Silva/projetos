@@ -54,6 +54,10 @@ export default function ListCards({ cards }: Props) {
 
   return (
     <>
+      {cards.length > itemsToShow 
+      ? <span className={style.cardsLength}>{`${itemsToShow} / ${cards.length}`}</span>
+      : <span className={style.cardsLength}>{`${cards.length} / ${cards.length}`}</span>
+      }
       <section className={style.container}>
         {cards.slice(0, itemsToShow).map(({id, name, card_images}) => (
           <div key={id} className={style.card}>
