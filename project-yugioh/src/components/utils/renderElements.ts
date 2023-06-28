@@ -9,18 +9,6 @@ import wind from '../../images/wind.png'
 import spell from '../../images/spell.png'
 import trap from '../../images/trap.png'
 
-// Backgrounds
-import normal from '../../images/normal.png'
-import effect from '../../images/effect.png'
-import fusion from '../../images/fusion.png'
-import synchro from '../../images/synchro.png'
-// import darkSynchro from '../../images/dark-synchro.png' 
-import xyz from '../../images/xyz.png'
-import link from '../../images/link.png'
-// import obelisk from '../../images/obelisk.png'
-import bSpell from '../../images/b-spell.png'
-import bTrap from '../../images/b-trap.png'
-
 export const renderAttribute = (attribute: string, frameType: string) => {
   if (attribute === 'DARK') return dark
   if (attribute === 'DIVINE') return divine
@@ -42,6 +30,18 @@ export const imgAttribute = (attribute: string) => {
   if (attribute === 'WATER') return water
   if (attribute === 'WIND') return wind
 }
+
+// Backgrounds
+import normal from '../../images/normal.png'
+import effect from '../../images/effect.png'
+import fusion from '../../images/fusion.png'
+import synchro from '../../images/synchro.png'
+// import darkSynchro from '../../images/dark-synchro.png' 
+import xyz from '../../images/xyz.png'
+import link from '../../images/link.png'
+// import obelisk from '../../images/obelisk.png'
+import bSpell from '../../images/b-spell.png'
+import bTrap from '../../images/b-trap.png'
 
 export const renderBackground = (frameType: string) => {
   if (frameType === 'normal') return normal

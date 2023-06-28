@@ -11,16 +11,13 @@ type Props = {
 }
 
 export default function ListCards({ cards }: Props) {
-  const [itemsToShow, setItemsToShow] = useState(() => {
-    const storedItemsToShow = localStorage.getItem('itemsToShow');
-    return storedItemsToShow ? parseInt(storedItemsToShow) : 30;
-  })
+  const [itemsToShow, setItemsToShow] = useState((30))
   const [upIsVisible, setUpIsVisible] = useState(false);
   const [downIsVisible, setDownIsVisible] = useState(false);
 
-  useEffect(() => {
-    localStorage.setItem('itemsToShow', itemsToShow.toString());
-  }, [itemsToShow]);
+  // useEffect(() => {
+  //   localStorage.setItem('itemsToShow', itemsToShow.toString());
+  // }, [itemsToShow]);
 
   useEffect(() => {
     const handleScroll = () => {

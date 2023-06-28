@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { SetStateAction, useContext, useEffect, useState } from 'react'
 import Header from '../components/Header'
 import ListCards from '../components/ListCards'
 import YugiohContext from '../context/YugiohContext'
@@ -7,6 +7,9 @@ import { imgAttribute } from '../components/utils/renderElements'
 import useHandleChange from '../hooks/useHandleChange'
 import useHandleCheckbox from '../hooks/useHandleCheckbox'
 import useHandleRadio from '../hooks/useHandleRadio'
+
+import rankImg from '../images/star-rank.png'
+import levelImg from '../images/star-level.png'
 // import Button from '../components/Button'
 
 export default function Monsters() {
@@ -18,6 +21,9 @@ export default function Monsters() {
   const filterType = useHandleChange('')
   const filterNormal = useHandleCheckbox(false)
   const filterAtr = useHandleRadio('')
+  const filterRankOrLevel = useHandleRadio('')
+  const filterLevel = useHandleRadio('')
+  // const filterLevel = useHandleRadio('')
 
   useEffect(() => {
     const cardsMonsters = cardList.filter((card: Card) => card.type.includes('Monster'))
@@ -29,18 +35,21 @@ export default function Monsters() {
       const typeMatch = filterType.value ? card.type.includes(filterType.value) : true
       const effectMatch = filterNormal.value ? card.type.includes('Normal') : true
       const attributeMatch = filterAtr.value ? card.attribute === filterAtr.value : true
-      return raceMatch && typeMatch && effectMatch && attributeMatch
+      const filterMonstersRank = filterRankOrLevel.value === 'rank' ? card.type.includes('XYZ') : true
+      const filterMonstersLevel = filterRankOrLevel.value === 'level' ? !card.type.includes('XYZ') : true
+      const filterLevelMatch = filterLevel.value ? card.level === Number(filterLevel.value) : true
+      return raceMatch && typeMatch && effectMatch && attributeMatch && filterMonstersRank && filterLevelMatch && filterMonstersLevel
     })
 
     setCards(filteredCards)
 
-    if (filteredCards.length === 0 && filterType.value && filterRace.value && filterNormal.value && filterAtr.value) {
+    if (filteredCards.length === 0 && filterType.value && filterRace.value && filterNormal.value && filterAtr.value && filterRankOrLevel.value && filterLevel.value) {
       setFilterError(true)
     } else {
       setFilterError(false)
     }
 
-  }, [cardList, filterRace.value, filterType.value, filterNormal.value, filterAtr.value])
+  }, [cardList, filterRace.value, filterType.value, filterNormal.value, filterAtr.value, filterRankOrLevel.value, filterLevel.value])
   
 
   // const handleFilter = () => {
@@ -55,19 +64,41 @@ export default function Monsters() {
   // console.log(cards);
   
 
-  const handleRadioClick = (attribute: string) => {
-    if (filterAtr.value === attribute) {
+  const handleRadioClick = (value: string, state: string, setState: { (value: SetStateAction<string>): void; (arg0: string): void }) => {
+    if (state === value) {
       // Se o input já estiver selecionado, desmarque-o
-      filterAtr.setValue("");
+      setState("");
     } else {
       // Caso contrário, marque-o com o valor do atributo
-      filterAtr.setValue(attribute);
+      setState(value);
+    }
+  };
+
+  const handleTwoRadiosClick = (value: string, state: string, setState: { (value: SetStateAction<string>): void; (arg0: string): void }, secondSetState: { (value: SetStateAction<string>): void; (arg0: string): void }) => {
+    if (state === value) {
+      // Se o input já estiver selecionado, desmarque-o
+      setState("");
+      secondSetState("");
+    } else {
+      // Caso contrário, marque-o com o valor do atributo
+      setState(value);
     }
   };
   
   const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
   const types = ["", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
   const attributes = ["DARK", "DIVINE", "EARTH", "FIRE", "LIGHT", "WATER", "WIND"]
+  const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+  const levels = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]
+
+  // const renderLevelFilter = () => {
+  //   const levels = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+
+  //   for (let i; i < levels.length; i++) {
+
+  //   }
+  // }
+  
   
   return (
     <>
@@ -104,13 +135,82 @@ export default function Monsters() {
                 type="radio"
                 value={attribute}
                 checked={filterAtr.value === attribute}
-                onChange={() => console.log('change')}
-                onClick={ () => handleRadioClick(attribute) }
+                onChange={() => console.log('change attribute')}
+                onClick={ () => handleRadioClick(attribute, filterAtr.value, filterAtr.setValue) }
               />
               <img src={imgAttribute(attribute)} alt={attribute} />
             </label>
           ))}
         </div>
+        <div>
+          <label htmlFor="rank">
+            <input
+              id='rank'
+              type="radio"
+              value='rank'
+              checked={filterRankOrLevel.value === 'rank'}
+              onChange={() => console.log('change for rank')}
+              onClick={ () => handleTwoRadiosClick('rank', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
+            /> <img src={rankImg} alt="Rank" />
+          </label>
+          <label htmlFor="level">
+            <input
+              id='level'
+              type="radio"
+              value='level'
+              checked={filterRankOrLevel.value === 'level'}
+              onChange={() => console.log('change for level')}
+              onClick={ () => handleTwoRadiosClick('level', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
+            /> <img src={levelImg} alt="Level" />
+          </label>
+        </div>
+        {filterRankOrLevel.value === 'rank' && (
+          <div>
+            {ranks.map((rank) => (
+              <label htmlFor={rank} key={rank}>
+                <input
+                  id={rank}
+                  type="radio"
+                  value={rank}
+                  checked={filterLevel.value === rank}
+                  onChange={() => console.log('change rank')}
+                  onClick={ () => handleRadioClick(rank, filterLevel.value, filterLevel.setValue) }
+                  /> <img src={rankImg} alt="Level" />
+              </label>
+            ))}
+          </div>
+        )}
+        {filterRankOrLevel.value === 'level' && (
+          <div>
+            {levels.map((level) => (
+              <label htmlFor={level} key={level}>
+                <input
+                  id={level}
+                  type="radio"
+                  value={level}
+                  checked={filterLevel.value === level}
+                  onChange={() => console.log('change level')}
+                  onClick={ () => handleRadioClick(level, filterLevel.value, filterLevel.setValue) }
+                  /> <img src={levelImg} alt="Level" />
+              </label>
+            ))}
+          </div>
+        )}
+        {/* <div>
+          {levels.map((level) => (
+            <label htmlFor={level} key={level}>
+              <input
+                id={level}
+                type="radio"
+                value={level}
+                checked={filterAtr.value === level}
+                onChange={() => console.log('change')}
+                onClick={ () => handleRadioClick(level) }
+              />
+              <img src={imgAttribute(level)} alt={level} />
+            </label>
+          ))}
+        </div> */}
       </div>
       {filterError && <div>No cards match your filter</div>}
       {/* <Button 

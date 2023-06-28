@@ -133,14 +133,14 @@ export default function RenderDetails({card}:Props) {
             <p>{desc}</p>
           </div>
           <div className={style.containerAtk}>
-            {atk && <span>ATK/{atk}</span>}
+            {atk >= 0 && <span>ATK/{atk}</span>}
             {def >= 0 && <span>DEF/{def}</span>}
             {linkval && <span>LINK-{linkval}</span>}
           </div>
         </div>
         {card_sets && (
           <div className={style.containerChild}>
-            <h2>How to get it</h2>
+            <h2>How to get</h2>
             {renderCardSets()}
           </div>
         )}
