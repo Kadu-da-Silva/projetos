@@ -33,3 +33,10 @@ export type Card = {
     coolstuffinc_price: string;
   }[];
 }
+
+export type Images = {
+  card_images: {
+    id: number;
+    image_url: string;
+  }[];
+}

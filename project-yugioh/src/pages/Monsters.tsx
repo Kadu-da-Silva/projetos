@@ -52,6 +52,17 @@ export default function Monsters() {
   //     }
   //   ])
   // }
+
+  const handleRadioClick = (attribute: string) => {
+    if (filterAtr.value === attribute.toUpperCase()) {
+      // Se o input já estiver selecionado, desmarque-o
+      filterAtr.setValue("");
+    } else {
+      // Caso contrário, marque-o com o valor do atributo
+      filterAtr.setValue(attribute.toUpperCase());
+    }
+  };
+  
   const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
   const types = ["", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
   const attributes = ["dark", "divine", "earth", "fire", "light", "water", "wind"]
@@ -76,13 +87,13 @@ export default function Monsters() {
             <option key={type} value={type}>{type}</option>
           ))}
         </select>
-        <label>
-          <input
-            type="checkbox"
-            checked={filterNormal.value} 
-            onChange={filterNormal.handleChange} 
-          /> Normal
-        </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={filterNormal.value} 
+              onChange={filterNormal.handleChange} 
+            /> Normal
+          </label>
         <div>
           {attributes.map((attribute) => (
             <label htmlFor={attribute} key={attribute}>
@@ -91,7 +102,8 @@ export default function Monsters() {
                 type="radio"
                 value={attribute.toLocaleUpperCase()}
                 checked={filterAtr.value === attribute}
-                onChange={filterAtr.handleChange}
+                onChange={() => console.log('change')}
+                onClick={ () => handleRadioClick(attribute) }
               />
               <img src={imgAttribute(attribute.toUpperCase())} alt={attribute} />
             </label>
@@ -102,7 +114,7 @@ export default function Monsters() {
       {/* <Button 
         classStyle='btn-filter'
         onClick={ handleFilter }
-        label='Filter'
+        label='Clear Filters'
       /> */}
       <ListCards cards={cards}/>
     </>
