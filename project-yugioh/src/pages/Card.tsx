@@ -7,14 +7,18 @@ export default function Card() {
   const {cardList} = useContext(YugiohContext)
   const {id: idRoute} = useParams()
 
-  useEffect(() => {
-    window.scrollTo(0, 0); // Rolagem para o topo da página
-  }, []);
-  
   const card = cardList.find((card) => card.id === Number(idRoute))
   console.log(card);
-  
 
+  useEffect(() => {
+    window.scrollTo(0, 0); // Rolagem para o topo da página
+    if (!card) {
+      document.title = 'Loading...'
+    } else {
+      document.title = card.name
+    }
+  }, [card]);
+  
   if (!card) {
     return <div>Loading...</div>;
   }

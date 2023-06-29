@@ -57,6 +57,7 @@ export default function AllCards() {
     } else {
       setFilterError(false)
     }
+    document.title = 'Yu-Gi-Oh Cards'
   }, [cardList,filterRace.value,filterType.value,filterAtr.value,filterRankOrLevel.value,filterLevel.value,filterArchetype.value,filterSearch.value,filterName.value,filterLink.value,filterSpellTrapType.value])
 
   const handleRadioClick = (
@@ -83,6 +84,7 @@ export default function AllCards() {
     filterRankOrLevel.setValue('')
     filterSearch.setValue(false)
     filterType.setValue('')
+    filterSpellTrapType.setValue('')
   };
   
   const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
