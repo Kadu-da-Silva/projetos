@@ -10,6 +10,7 @@ import useHandleChange from '../hooks/useHandleChange'
 import rankImg from '../images/star-rank.png'
 import levelImg from '../images/star-level.png'
 import style from './AllCards.module.css'
+import { attributes, levels, links, races, ranks, typeSpellAndTrap, types } from '../data/arrays'
 
 export default function AllCards() {
   const { cardList } = useContext(YugiohContext)
@@ -86,15 +87,6 @@ export default function AllCards() {
     filterType.setValue('')
     filterSpellTrapType.setValue('')
   };
-  
-  const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
-  const types = ["", "Normal", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
-  const attributes = ["DIVINE", "DARK", "EARTH", "FIRE", "LIGHT", "WATER", "WIND", "spell", "trap"]
-  const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-  const levels = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]
-  const links = ['', 1,2,3,4,5,6]
-  const typeSpellAndTrap = ["Equip", "Continuous", "Quick-Play", "Field", "Ritual", "Counter"]
-
   if (loading) {
     return <div>Loading...</div>;
   }
