@@ -13,8 +13,8 @@ export default function Header() {
         </Link>
       )}
       
-      {!pathname.includes('/spells') && (
-        <Link to={'/spells'}>
+      {!pathname.includes('/spells&traps') && (
+        <Link to={'/spells&traps'}>
           <button>
             Spells / Traps
           </button>

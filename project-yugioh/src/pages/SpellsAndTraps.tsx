@@ -23,10 +23,6 @@ export default function Spells() {
   const filteredCards = cardsSpellsAndTraps.filter((card: Card) => {
     const raceMatch = filterRace.value ? card.race === filterRace.value : true
     const typeMatch = filterType.value ? card.type.includes(filterType.value) : true
-    // const attributeMatch = filterAtr.value ? card.attribute === filterAtr.value : true
-    // const filterMonstersRank = filterRankOrLevel.value === 'rank' ? card.type.includes('XYZ') : true
-    // const filterMonstersLevel = filterRankOrLevel.value === 'level' ? !card.type.includes('XYZ') : true
-    // const filterLevelMatch = filterLevel.value ? card.level === Number(filterLevel.value) : true
     return raceMatch && typeMatch
   })
   setCards(filteredCards)
