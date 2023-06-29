@@ -22,8 +22,8 @@ export const renderAttribute = (attribute: string, frameType: string) => {
 }
 
 export const imgAttribute = (attribute: string) => {
-  if (attribute === 'DARK') return dark
   if (attribute === 'DIVINE') return divine
+  if (attribute === 'DARK') return dark
   if (attribute === 'EARTH') return earth
   if (attribute === 'FIRE') return fire
   if (attribute === 'LIGHT') return light
