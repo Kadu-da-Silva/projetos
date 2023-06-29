@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function ListCards({ cards }: Props) {
-  const [itemsToShow, setItemsToShow] = useState((12))
+  const [itemsToShow, setItemsToShow] = useState((15))
   // const [loading, setLoading] = useState(false);
   const [upIsVisible, setUpIsVisible] = useState(false);
   const [downIsVisible, setDownIsVisible] = useState(false);
@@ -26,11 +26,11 @@ export default function ListCards({ cards }: Props) {
       // Ajusta a quantidade de itens com base no valor de scrollTop
       // const newItemsToShow = Math.round(scrollTop / 100) + 100; --- Muito Bug
 
-      if (isAtBottom) setItemsToShow(itemsToShow + 12);
-      if (scrollTop === 0) setItemsToShow(12)
+      if (isAtBottom) setItemsToShow(itemsToShow + 15);
+      if (scrollTop === 0) setItemsToShow(15)
 
       setUpIsVisible(scrollTop > 1000);
-      setDownIsVisible(scrollTop < 1000 && itemsToShow > 100);
+      setDownIsVisible(scrollTop < 1000 && itemsToShow > 30);
     };
 
     // Adiciona um listener para o evento de scroll
@@ -67,7 +67,7 @@ export default function ListCards({ cards }: Props) {
       <section className={style.container}>
         {cards.slice(0, itemsToShow).map(({id, name, card_images}) => (
           <div key={id} className={style.card}>
-            <Link to={`/cards/card/${id}`} target="_blank">
+            <Link to={`/card/${id}`} target="_blank">
               <img key={id} src={card_images[0].image_url} alt={name} />
             </Link>
           </div>

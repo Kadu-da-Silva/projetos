@@ -10,7 +10,7 @@ function App() {
     <Routes>
       <Route path='/' element={ <Home /> } />
       <Route path='/cards' element={ <AllCards />} />
-      <Route path='/cards/card/:id' element={ <Card />} />
+      <Route path='/card/:id' element={ <Card />} />
     </Routes>
   )
 }
