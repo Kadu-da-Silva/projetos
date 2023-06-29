@@ -1,17 +1,15 @@
 import { SetStateAction, useContext, useEffect, useState } from 'react'
-import ListCards from '../components/ListCards'
 import YugiohContext from '../context/YugiohContext'
 import { Card } from '../types/type'
+import ListCards from '../components/ListCards'
 import { imgAttribute } from '../components/utils/renderElements'
 import useHandleSelect from '../hooks/useHandleSelect'
 import useHandleRadio from '../hooks/useHandleRadio'
-
 import rankImg from '../images/star-rank.png'
 import levelImg from '../images/star-level.png'
+import style from './AllCards.module.css'
 
-import style from './Monster.module.css'
-
-export default function Monsters() {
+export default function AllCards() {
   const { cardList } = useContext(YugiohContext)
   const [cards, setCards] = useState<Card[]>([])
   const [filterError, setFilterError] = useState(false)
@@ -27,8 +25,8 @@ export default function Monsters() {
     const cards = cardList
     const archetypes: string[] = [""]
 
-    // A função filteredCards retorna true se a raça corresponder ao filtro
-    //Se ambos os filtros não estiverem selecionados, a função retorna true para todas as carta
+    // A função filteredCards retorna true se algum filtro corresponder
+    //Se ambos os filtros não estiverem selecionados, a função retorna true para todas as cartas
     const filteredCards = cards.filter((card: Card) => {
       const raceMatch = filterRace.value ? card.race === filterRace.value : true
       const typeMatch = filterType.value ? card.type.includes(filterType.value) : true
@@ -85,38 +83,36 @@ export default function Monsters() {
   const attributes = ["DARK", "DIVINE", "EARTH", "FIRE", "LIGHT", "WATER", "WIND", "spell", "trap"]
   const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
   const levels = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]
+
+  if (!cards.length) {
+    return <div>Loading...</div>;
+  }
+
   
   return (
     <>
       <div className={style.containerFilters}>
-        <select
-          value={filterRace.value}
-          onChange={filterRace.handleChange}
-          className={style.race}
-        >
+        {/* Filtra pelas races */}
+        <select value={filterRace.value} onChange={filterRace.handleChange}>
           {races.map((race) => (
             <option key={race} value={race}>{race ? race : 'select breed'}</option>
           ))}
         </select>
-        <select
-          value={filterType.value}
-          onChange={filterType.handleChange}
-          className={style.type}
-        >
+        {/* Filtra pelos types */}
+        <select value={filterType.value} onChange={filterType.handleChange}>
           {types.map((type) => (
             <option key={type} value={type}>{type ? type : 'select type'}</option>
           ))}
         </select>
-        <select
-          value={filterArchetype.value}
-          onChange={filterArchetype.handleChange}
-          className={style.race}
-        >
+        {/* Filtra pelos archetypes */}
+        <select value={filterArchetype.value} onChange={filterArchetype.handleChange}>
           {archetypesState.map((archetype) => (
             <option key={archetype} value={archetype}>{archetype ? archetype : 'select archetype'}</option>
           ))}
         </select>
-        <div className={style.containerAttrs}>
+        {/* Filtros do tipo radio */}
+        <div className={style.containerRadios}>
+          {/* Habilita o filtro de rank se type for xyz */}
           {filterType.value === 'XYZ' && (
             <label htmlFor="rank" className={style.containerRankLevel}>
               <input
@@ -129,6 +125,7 @@ export default function Monsters() {
               /> <img src={rankImg} alt="Rank" className={filterRankOrLevel.value === 'rank' ? style.imgLevel : style.imgAll}/>
             </label>
           )}
+          {/* Filtra pelo attributes incluindo as spells e traps */}
           {attributes.map((attribute) => (
             <label htmlFor={attribute} key={attribute}>
               <input
@@ -142,6 +139,7 @@ export default function Monsters() {
               <img src={imgAttribute(attribute)} alt={attribute} className={filterAtr.value === attribute ? style.imgAttr : style.imgAll}/>
             </label>
           ))}
+          {/* Habilita o filtro de level se type for diferente de xyz e link */}
           {filterType.value !== 'XYZ' && filterType.value !== 'Link' && filterType.value && (
             <label htmlFor="level" className={style.containerRankLevel}>
               <input
@@ -155,7 +153,7 @@ export default function Monsters() {
             </label>
           )}
         </div>
-        
+        {/* Filtra pelo rank */}
         {filterRankOrLevel.value === 'rank' && (
           <div className={style.containerRanks}>
             {ranks.map((rank) => (
@@ -172,6 +170,7 @@ export default function Monsters() {
             ))}
           </div>
         )}
+        {/* Filtra pelo level */}
         {filterRankOrLevel.value === 'level' && (
           <div className={style.containerLevels}>
             {levels.map((level) => (
@@ -189,7 +188,9 @@ export default function Monsters() {
           </div>
         )}
       </div>
+      {/* Mensagem de erro caso os filtros nao retornem null */}
       {filterError && <div>No cards match your filter</div>}
+      {/* Componente renderiza lista de cards */}
       <ListCards cards={cards}/>
     </>
   )

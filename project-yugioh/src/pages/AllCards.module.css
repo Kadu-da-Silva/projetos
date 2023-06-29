@@ -27,7 +27,7 @@ select:focus-visible {
 
 
 /* Style Inputs */
-.containerAttrs input {
+.containerRadios input {
   appearance: none;
 }
 
@@ -47,7 +47,7 @@ select:focus-visible {
 
 
 /* Style Images */
-.containerAttrs img:hover {
+.containerRadios img:hover {
   border-radius: 100px;
   box-shadow: 0 0 10px rgba(100, 108, 255, 1);
 }
