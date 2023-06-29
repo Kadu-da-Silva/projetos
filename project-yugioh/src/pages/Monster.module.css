@@ -1,3 +1,4 @@
+/* Style Selects */
 .containerFilters select {
   position: relative;
   margin: 10px;
@@ -24,26 +25,40 @@ select:focus-visible {
   text-transform: uppercase;
 }
 
+
+/* Style Inputs */
 .containerAttrs input {
   appearance: none;
 }
 
+.containerRankLevel input {
+  appearance: none;
+}
+
+.containerLevels input {
+  appearance: none;
+  margin: 1px;
+}
+
+.containerRanks input {
+  appearance: none;
+  margin: 1px;
+}
+
+
+/* Style Images */
 .containerAttrs img:hover {
   border-radius: 100px;
   box-shadow: 0 0 10px rgba(100, 108, 255, 1);
 }
 
+.containerRankLevel img {
+  width: 40px;
+}
+
 .imgAttr {
   border-radius: 100px;
   box-shadow: 0 0 15px rgba(100, 108, 255, 1);
-}
-
-.containerRankLevel {
-  margin: 10px;
-}
-
-.containerRankLevel img {
-  width: 40px;
 }
 
 .containerRankLevel img:hover {
@@ -57,34 +72,16 @@ select:focus-visible {
   box-shadow: 0 0 15px rgba(100, 108, 255, 1);
 }
 
-.containerRankLevel input {
-  appearance: none;
-}
-.containerLevels {
-  margin: 10px;
-  text-align: right;
-}
-.containerLevels input {
-  appearance: none;
-  margin: 1px;
-}
 .containerLevels img {
   width: 40px;
 }
+
 .containerLevels img:hover {
   border-radius: 100px;
   box-shadow: 0 0 10px rgba(100, 108, 255, 1);
   cursor: pointer;
 }
 
-.containerRanks {
-  margin: 10px;
-  text-align: left;
-}
-.containerRanks input {
-  appearance: none;
-  margin: 1px;
-}
 .containerRanks img {
   width: 40px;
 }
@@ -93,6 +90,23 @@ select:focus-visible {
   box-shadow: 0 0 10px rgba(100, 108, 255, 1);
   cursor: pointer;
 }
+
+
+/* Style Class */
+.containerRankLevel {
+  margin: 10px;
+}
+
+.containerLevels {
+  margin: 10px;
+  text-align: right;
+}
+
+.containerRanks {
+  margin: 10px;
+  text-align: left;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {

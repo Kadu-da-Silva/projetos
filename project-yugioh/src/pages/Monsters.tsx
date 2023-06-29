@@ -36,7 +36,6 @@ export default function Monsters() {
       const filterLevelMatch = filterLevel.value ? card.level === Number(filterLevel.value) : true
       return raceMatch && typeMatch && attributeMatch && filterMonstersRank && filterLevelMatch && filterMonstersLevel
     })
-
     setCards(filteredCards)
 
     if (filteredCards.length === 0 && filteredCards) {
@@ -44,7 +43,6 @@ export default function Monsters() {
     } else {
       setFilterError(false)
     }
-
   }, [cardList, filterRace.value, filterType.value, filterAtr.value, filterRankOrLevel.value, filterLevel.value])
 
   const handleRadioClick = (value: string, state: string, setState: { (value: SetStateAction<string>): void; (arg0: string): void }) => {
@@ -84,7 +82,7 @@ export default function Monsters() {
           className={style.race}
         >
           {races.map((race) => (
-            <option key={race} value={race}>{race ? race : 'SELECT BREED'}</option>
+            <option key={race} value={race}>{race ? race : 'select breed'}</option>
           ))}
         </select>
         <select
@@ -93,7 +91,7 @@ export default function Monsters() {
           className={style.type}
         >
           {types.map((type) => (
-            <option key={type} value={type}>{type ? type : 'SELECT TYPE'}</option>
+            <option key={type} value={type}>{type ? type : 'select type'}</option>
           ))}
         </select>
         <div className={style.containerAttrs}>

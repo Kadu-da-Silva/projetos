@@ -40,8 +40,8 @@
 }
 
 .cardsLength {
-  position: absolute;
-  top: 150px;
+  position: fixed;
+  top: 50px;
   left: 35px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -49,7 +49,7 @@
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: rgba(0, 0, 0, 0.5);
   transition: border-color 0.25s;
 }
 
@@ -65,6 +65,6 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 1);
   }
   .cardsLength {
-    background-color: #f9f9f9;
+    background-color: rgba(255, 255, 255, 0.5);
   }
 }

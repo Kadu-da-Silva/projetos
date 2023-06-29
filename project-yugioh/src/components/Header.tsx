@@ -16,15 +16,7 @@ export default function Header() {
       {!pathname.includes('/spells') && (
         <Link to={'/spells'}>
           <button>
-            Spells
-          </button>
-        </Link>
-      )}
-
-      {!pathname.includes('/trap') && (
-        <Link to={'/traps'}>
-          <button>
-            Traps
+            Spells / Traps
           </button>
         </Link>
       )}
