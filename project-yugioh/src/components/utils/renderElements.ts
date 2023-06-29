@@ -29,8 +29,8 @@ export const imgAttribute = (attribute: string) => {
   if (attribute === 'LIGHT') return light
   if (attribute === 'WATER') return water
   if (attribute === 'WIND') return wind
-  if (attribute === 'Spell') return spell
-  if (attribute === 'Trap') return trap
+  if (attribute === 'spell') return spell
+  if (attribute === 'trap') return trap
 }
 
 // Backgrounds

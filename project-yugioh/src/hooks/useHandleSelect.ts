@@ -1,9 +1,9 @@
 import { ChangeEvent, useState } from 'react';
 
-export default function useHandleChange(initialValue: string) {
+export default function useHandleSelect(initialValue: string) {
   const [value, setValue] = useState(initialValue);
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
     setValue(e.target.value);
   }
 

@@ -61,7 +61,7 @@ export default function ListCards({ cards }: Props) {
       <section className={style.container}>
         {cards.slice(0, itemsToShow).map(({id, name, card_images}) => (
           <div key={id} className={style.card}>
-            <Link to={`/card/${id}`} target="_blank">
+            <Link to={`/cards/${id}`} target="_blank">
               <img key={id} src={card_images[0].image_url} alt={name} />
             </Link>
           </div>

@@ -1,8 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css'
-import Monsters from './pages/Monsters';
-import SpellsAndTraps from './pages/SpellsAndTraps';
 import Home from './pages/Home';
+import AllCards from './pages/AllCards';
 import Card from './pages/Card';
 
 function App() {
@@ -10,9 +9,8 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={ <Home /> } />
-      <Route path='/monsters' element={ <Monsters />} />
-      <Route path='/spells&traps' element={ <SpellsAndTraps />} />
-      <Route path='/card/:id' element={ <Card />} />
+      <Route path='/cards' element={ <AllCards />} />
+      <Route path='/cards/:id' element={ <Card />} />
     </Routes>
   )
 }
