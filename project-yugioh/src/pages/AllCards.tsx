@@ -2,7 +2,7 @@ import { SetStateAction, useContext, useEffect, useState } from 'react'
 import YugiohContext from '../context/YugiohContext'
 import { Card } from '../types/type'
 import ListCards from '../components/ListCards'
-import { imgAttribute } from '../components/utils/renderElements'
+import { imgAttribute, typeSpellTrap } from '../components/utils/renderElements'
 import useHandleSelect from '../hooks/useHandleSelect'
 import useHandleRadio from '../hooks/useHandleRadio'
 import useHandleCheckbox from '../hooks/useHandleCheckbox'
@@ -26,6 +26,7 @@ export default function AllCards() {
   const filterSearch = useHandleCheckbox(false)
   const filterName = useHandleChange('')
   const filterLink = useHandleSelect('')
+  const filterSpellTrapType = useHandleRadio('')
 
   useEffect(() => {
     const cards = cardList
@@ -45,7 +46,8 @@ export default function AllCards() {
       const filterNameMatch = filterName.value && !filterSearch.value ? card.name.includes(filterName.value) : true
       const filterSearchMatch = filterSearch.value ? card.desc.includes(filterName.value) : true
       const filterLinkMatch = filterLink.value ? card.linkval === Number(filterLink.value) : true
-    return raceMatch&&typeMatch&&attributeMatch&&filterMonstersRank&&filterLevelMatch&&filterMonstersLevel&&filterArchetypeMatch&&filterSearchMatch&&filterNameMatch&&filterLinkMatch
+      const filterSpellTrapMatch = filterSpellTrapType.value ? card.race === filterSpellTrapType.value : true
+    return raceMatch&&typeMatch&&attributeMatch&&filterMonstersRank&&filterLevelMatch&&filterMonstersLevel&&filterArchetypeMatch&&filterSearchMatch&&filterNameMatch&&filterLinkMatch&&filterSpellTrapMatch
     })
     setCards(filteredCards)
     setArchetypes(archetypes)
@@ -55,7 +57,7 @@ export default function AllCards() {
     } else {
       setFilterError(false)
     }
-  }, [cardList,filterRace.value,filterType.value,filterAtr.value,filterRankOrLevel.value,filterLevel.value,filterArchetype.value,filterSearch.value,filterName.value,filterLink.value])
+  }, [cardList,filterRace.value,filterType.value,filterAtr.value,filterRankOrLevel.value,filterLevel.value,filterArchetype.value,filterSearch.value,filterName.value,filterLink.value,filterSpellTrapType.value])
 
   const handleRadioClick = (
       value: string, 
@@ -65,22 +67,6 @@ export default function AllCards() {
     if (state === value) {
       // Se o input já estiver selecionado, desmarque-o
       setState("");
-    } else {
-      // Caso contrário, marque-o com o valor do atributo
-      setState(value);
-    }
-  };
-
-  const handleTwoRadiosClick = (
-      value: string, 
-      state: string, 
-      setState: { (value: SetStateAction<string>): void; (arg0: string): void }, 
-      secondSetState: { (value: SetStateAction<string>): void; (arg0: string): void }
-    ) => {
-    if (state === value) {
-      // Se o input já estiver selecionado, desmarque-o
-      setState("");
-      secondSetState("");
     } else {
       // Caso contrário, marque-o com o valor do atributo
       setState(value);
@@ -105,6 +91,7 @@ export default function AllCards() {
   const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
   const levels = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]
   const links = ['', 1,2,3,4,5,6]
+  const typeSpellAndTrap = ["Equip", "Continuous", "Quick-Play", "Field", "Ritual", "Counter"]
 
   if (loading) {
     return <div>Loading...</div>;
@@ -162,8 +149,8 @@ export default function AllCards() {
                 value='rank'
                 checked={filterRankOrLevel.value === 'rank'}
                 onChange={() => console.log('change for rank')}
-                onClick={ () => handleTwoRadiosClick('rank', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
-              /> <img src={rankImg} alt="Rank" className={filterRankOrLevel.value === 'rank' ? style.imgLevel : style.imgAll}/>
+                onClick={ () => handleRadioClick('rank', filterRankOrLevel.value, filterRankOrLevel.setValue) }
+              /> <img src={rankImg} alt="Rank" className={filterRankOrLevel.value === 'rank' ? style.imgFocus : style.imgAll}/>
             </label>
           )}
           {/* Filtra pelo attributes incluindo as spells e traps */}
@@ -177,7 +164,7 @@ export default function AllCards() {
                 onChange={() => console.log('change attribute')}
                 onClick={ () => handleRadioClick(attribute, filterAtr.value, filterAtr.setValue) }
               />
-              <img src={imgAttribute(attribute)} alt={attribute} className={filterAtr.value === attribute ? style.imgAttr : style.imgAll}/>
+              <img src={imgAttribute(attribute)} alt={attribute} className={filterAtr.value === attribute ? style.imgFocus : style.imgAll}/>
             </label>
           ))}
           {/* Habilita o filtro de level se type for diferente de xyz e link */}
@@ -189,8 +176,8 @@ export default function AllCards() {
                 value='level'
                 checked={filterRankOrLevel.value === 'level'}
                 onChange={() => console.log('change for level')}
-                onClick={ () => handleTwoRadiosClick('level', filterRankOrLevel.value, filterRankOrLevel.setValue, filterLevel.setValue) }
-              /> <img src={levelImg} alt="Level" className={filterRankOrLevel.value === 'level' ? style.imgLevel : style.imgAll}/>
+                onClick={ () => handleRadioClick('level', filterRankOrLevel.value, filterRankOrLevel.setValue) }
+              /> <img src={levelImg} alt="Level" className={filterRankOrLevel.value === 'level' ? style.imgFocus : style.imgAll}/>
             </label>
           )}
         </div>
@@ -206,7 +193,7 @@ export default function AllCards() {
                   checked={filterLevel.value === rank}
                   onChange={() => console.log('change rank')}
                   onClick={ () => handleRadioClick(rank, filterLevel.value, filterLevel.setValue) }
-                  /> <img src={rankImg} alt="Level" className={filterLevel.value === rank ? style.imgLevel : style.imgAll}/>
+                  /> <img src={rankImg} alt="Level" className={filterLevel.value === rank ? style.imgFocus : style.imgAll}/>
               </label>
             ))}
           </div>
@@ -223,7 +210,7 @@ export default function AllCards() {
                   checked={filterLevel.value === level}
                   onChange={() => console.log('change level')}
                   onClick={ () => handleRadioClick(level, filterLevel.value, filterLevel.setValue) }
-                  /> <img src={levelImg} alt="Level" className={filterLevel.value === level ? style.imgLevel : style.imgAll}/>
+                  /> <img src={levelImg} alt="Level" className={filterLevel.value === level ? style.imgFocus : style.imgAll}/>
               </label>
             ))}
           </div>
@@ -236,6 +223,23 @@ export default function AllCards() {
             ))}
         </select>
         )}
+        {/* Filtra traps e spells */}
+        {filterAtr.value === 'spell' || filterAtr.value === 'trap' ? (
+          <div className={style.containerRadios}>
+            {typeSpellAndTrap.map((type) => (
+              <label htmlFor={type} key={type} id={`label-${type}`}>
+                <input 
+                  type="radio" 
+                  id={type}
+                  value={type}
+                  checked={filterSpellTrapType.value === type}
+                  onChange={() => console.log('Change spell trap type')}
+                  onClick={() => handleRadioClick(type, filterSpellTrapType.value, filterSpellTrapType.setValue)}
+                /> <img src={typeSpellTrap(type)} alt="type" className={filterSpellTrapType.value === type ? style.imgFocus : style.imgAll} />
+              </label>
+            ))}
+          </div>
+        ) : <div/>}
       </div>
       {/* Mensagem de erro caso os filtros nao retornem null */}
       {filterError && <div>No cards match your filter</div>}

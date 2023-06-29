@@ -52,10 +52,6 @@ select:focus-visible {
   appearance: none;
 }
 
-.containerRankLevel input {
-  appearance: none;
-}
-
 .containerLevels input {
   appearance: none;
   margin: 1px;
@@ -68,53 +64,23 @@ select:focus-visible {
 
 
 /* Style Images */
-.containerRadios img:hover {
-  border-radius: 100px;
-  box-shadow: 0 0 10px rgba(100, 108, 255, 1);
-}
 
-.containerRankLevel img {
-  width: 40px;
-}
-
-.imgAttr {
+.imgFocus {
   border-radius: 100px;
   box-shadow: 0 0 15px rgba(100, 108, 255, 1);
-}
-
-.containerRankLevel img:hover {
-  border-radius: 100px;
-  box-shadow: 0 0 10px rgba(100, 108, 255, 1);
-  cursor: pointer;
-}
-
-.imgLevel {
-  border-radius: 100px;
-  box-shadow: 0 0 15px rgba(100, 108, 255, 1);
-}
-
-.containerLevels img {
-  width: 40px;
-}
-
-.containerLevels img:hover {
-  border-radius: 100px;
-  box-shadow: 0 0 10px rgba(100, 108, 255, 1);
-  cursor: pointer;
-}
-
-.containerRanks img {
-  width: 40px;
-}
-.containerRanks img:hover {
-  border-radius: 100px;
-  box-shadow: 0 0 10px rgba(100, 108, 255, 1);
-  cursor: pointer;
-}
-
-.containerChecks img {
   width: 50px;
 }
+
+.imgAll {
+  width: 50px;
+}
+
+.imgAll:hover {
+  border-radius: 100px;
+  box-shadow: 0 0 10px rgba(100, 108, 255, 1);
+  cursor: pointer;
+}
+
 /* Style Class */
 .containerLevel {
   position: absolute;

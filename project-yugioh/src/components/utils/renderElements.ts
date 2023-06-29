@@ -56,23 +56,19 @@ export const renderBackground = (frameType: string) => {
   if (frameType === 'trap') return bTrap
 }
 
-// Links
-import left from '../../images/Left.svg'
-import left_bottom from '../../images/Left-Bottom.svg'
-import left_top from '../../images/Left-Top.svg'
-import right from '../../images/Right.svg'
-import right_bottom from '../../images/Right-Bottom.svg'
-import right_top from '../../images/Right-Top.svg'
-import top from '../../images/Top.svg'
-import bottom from '../../images/Bottom.svg'
+// Spells and Traps type
+import equip from '../../images/Equip.png'
+import field from '../../images/Field.png'
+import continuous from '../../images/Continuous.png'
+import quick from '../../images/Quick-Play.png'
+import ritual from '../../images/Ritual.png'
+import counter from '../../images/Counter.png'
 
-export const renderLinkmaker = (position: string) => {
-  if (position === 'Top') return top
-  if (position === 'Bottom') return bottom
-  if (position === 'Left') return left
-  if (position === 'Right') return right
-  if (position === 'Top-Right') return right_top
-  if (position === 'Bottom-Right') return right_bottom
-  if (position === 'Bottom-Left') return left_bottom
-  if (position === 'Top-Left') return left_top
+export const typeSpellTrap = (type: string) => {
+  if (type === 'Equip') return equip
+  if (type === 'Field') return field
+  if (type === 'Continuous') return continuous
+  if (type === 'Quick-Play') return quick
+  if (type === 'Ritual') return ritual
+  if (type === 'Counter') return counter
 }
