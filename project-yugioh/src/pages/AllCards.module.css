@@ -112,7 +112,9 @@ select:focus-visible {
   cursor: pointer;
 }
 
-
+.containerChecks img {
+  width: 50px;
+}
 /* Style Class */
 .containerRankLevel {
   margin: 10px;

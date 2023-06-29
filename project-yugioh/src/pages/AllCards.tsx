@@ -25,6 +25,7 @@ export default function AllCards() {
   const filterArchetype = useHandleSelect('')
   const filterSearch = useHandleCheckbox(false)
   const filterName = useHandleChange('')
+  const filterLink = useHandleSelect('')
 
   useEffect(() => {
     const cards = cardList
@@ -43,7 +44,8 @@ export default function AllCards() {
       const filterArchetypeMatch = filterArchetype.value ? card.archetype === filterArchetype.value : true
       const filterNameMatch = filterName.value && !filterSearch.value ? card.name.includes(filterName.value) : true
       const filterSearchMatch = filterSearch.value ? card.desc.includes(filterName.value) : true
-    return raceMatch && typeMatch && attributeMatch && filterMonstersRank && filterLevelMatch && filterMonstersLevel && filterArchetypeMatch && filterSearchMatch && filterNameMatch
+      const filterLinkMatch = filterLink.value ? card.linkval === Number(filterLink.value) : true
+    return raceMatch&&typeMatch&&attributeMatch&&filterMonstersRank&&filterLevelMatch&&filterMonstersLevel&&filterArchetypeMatch&&filterSearchMatch&&filterNameMatch&&filterLinkMatch
     })
     setCards(filteredCards)
     setArchetypes(archetypes)
@@ -53,7 +55,7 @@ export default function AllCards() {
     } else {
       setFilterError(false)
     }
-  }, [cardList, filterRace.value, filterType.value, filterAtr.value, filterRankOrLevel.value, filterLevel.value, filterArchetype.value, filterSearch.value, filterName.value])
+  }, [cardList,filterRace.value,filterType.value,filterAtr.value,filterRankOrLevel.value,filterLevel.value,filterArchetype.value,filterSearch.value,filterName.value,filterLink.value])
 
   const handleRadioClick = (
       value: string, 
@@ -90,6 +92,7 @@ export default function AllCards() {
   const attributes = ["DIVINE", "DARK", "EARTH", "FIRE", "LIGHT", "WATER", "WIND", "spell", "trap"]
   const ranks = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
   const levels = ["12", "11", "10", "9", "8", "7", "6", "5", "4", "3", "2", "1"]
+  const links = ['', 1,2,3,4,5,6]
 
   if (loading) {
     return <div>Loading...</div>;
@@ -135,17 +138,6 @@ export default function AllCards() {
             <option key={archetype} value={archetype}>{archetype ? archetype : 'select archetype'}</option>
           ))}
         </select>
-        {/* Procura o input no description
-        {filterArchetype.value && (
-          <label htmlFor="search">
-            <input 
-              type="checkbox" 
-              id="search" 
-              checked={filterSearch.value}
-              onChange={filterSearch.handleChange}
-            /> Search in Description
-          </label>
-        )} */}
         {/* Filtros do tipo radio */}
         <div className={style.containerRadios}>
           {/* Habilita o filtro de rank se type for xyz */}
@@ -222,6 +214,14 @@ export default function AllCards() {
               </label>
             ))}
           </div>
+        )}
+        {/* Filtra pelo Link */}
+        {filterType.value === 'Link' && (
+          <select value={filterLink.value} onChange={filterLink.handleChange}>
+            {links.map((link, index) => (
+              <option key={index} value={link}>{link ? `LINK - ${link}` : 'select link value'}</option>
+            ))}
+        </select>
         )}
       </div>
       {/* Mensagem de erro caso os filtros nao retornem null */}
