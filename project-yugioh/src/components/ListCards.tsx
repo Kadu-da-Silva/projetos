@@ -11,20 +11,26 @@ type Props = {
 }
 
 export default function ListCards({ cards }: Props) {
-  const [itemsToShow, setItemsToShow] = useState((30))
+  const [itemsToShow, setItemsToShow] = useState((12))
+  // const [loading, setLoading] = useState(false);
   const [upIsVisible, setUpIsVisible] = useState(false);
   const [downIsVisible, setDownIsVisible] = useState(false);
 
-  // useEffect(() => {
-  //   localStorage.setItem('itemsToShow', itemsToShow.toString());
-  // }, [itemsToShow]);
-
   useEffect(() => {
     const handleScroll = () => {
-      // Exibe o botão quando o usuário rolar além de um certo ponto da página
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const { scrollTop, scrollHeight, clientHeight  } = document.documentElement;
+
+      // Verifica se o usuário chegou ao pé da página
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+
+      // Ajusta a quantidade de itens com base no valor de scrollTop
+      // const newItemsToShow = Math.round(scrollTop / 100) + 100; --- Muito Bug
+
+      if (isAtBottom) setItemsToShow(itemsToShow + 12);
+      if (scrollTop === 0) setItemsToShow(12)
+
       setUpIsVisible(scrollTop > 1000);
-      setDownIsVisible(scrollTop < 1000 && itemsToShow > 30);
+      setDownIsVisible(scrollTop < 1000 && itemsToShow > 100);
     };
 
     // Adiciona um listener para o evento de scroll
@@ -51,7 +57,7 @@ export default function ListCards({ cards }: Props) {
       behavior: 'smooth',
     });
   };
-
+  
   return (
     <>
       {cards.length > itemsToShow 
@@ -67,11 +73,6 @@ export default function ListCards({ cards }: Props) {
           </div>
         ))}
       </section>
-      {itemsToShow < cards.length && (
-        <button onClick={() => setItemsToShow(itemsToShow + 30)}>
-          Mostrar Mais
-        </button>
-      )}
       <button
         onClick={scrollToTop}
         className={`${upIsVisible ? style.btnVisible : style.btnHidden}`}
@@ -84,7 +85,6 @@ export default function ListCards({ cards }: Props) {
       >
         <img src={arrowDown} alt="" />
       </button>
-      
     </>
   )
 }

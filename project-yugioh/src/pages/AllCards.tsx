@@ -109,31 +109,31 @@ export default function AllCards() {
             placeholder='Search Name'
           />
           {/* Procura o input no description */}
-        {filterName.value && (
-            <label htmlFor="search">
-              <input 
-                type="checkbox" 
-                id="search" 
-                checked={filterSearch.value}
-                onChange={filterSearch.handleChange}
-              /> Search in Description
-            </label>
+          {filterName.value && (
+              <label htmlFor="search" id='label-search'>
+                <input 
+                  type="checkbox" 
+                  id="search" 
+                  checked={filterSearch.value}
+                  onChange={filterSearch.handleChange}
+                /> Search in Description
+              </label>
           )}
         </div>
         {/* Filtra pelas races */}
-        <select value={filterRace.value} onChange={filterRace.handleChange}>
+        <select title='Filter Races' value={filterRace.value} onChange={filterRace.handleChange}>
           {races.sort().map((race) => (
             <option key={race} value={race}>{race ? race : 'select breed'}</option>
           ))}
         </select>
         {/* Filtra pelos types */}
-        <select value={filterType.value} onChange={filterType.handleChange}>
+        <select title='Filter Types' value={filterType.value} onChange={filterType.handleChange}>
           {types.map((type) => (
             <option key={type} value={type}>{type ? type : 'select type'}</option>
           ))}
         </select>
         {/* Filtra pelos archetypes */}
-        <select value={filterArchetype.value} onChange={filterArchetype.handleChange}>
+        <select title='Filter Archetypes' value={filterArchetype.value} onChange={filterArchetype.handleChange}>
           {archetypesState.sort().map((archetype) => (
             <option key={archetype} value={archetype}>{archetype ? archetype : 'select archetype'}</option>
           ))}
@@ -142,7 +142,7 @@ export default function AllCards() {
         <div className={style.containerRadios}>
           {/* Habilita o filtro de rank se type for xyz */}
           {filterType.value === 'XYZ' && (
-            <label htmlFor="rank" className={style.containerRankLevel}>
+            <label htmlFor="rank" id='label-rank' className={style.containerRankLevel}>
               <input
                 id='rank'
                 type="radio"
@@ -155,7 +155,7 @@ export default function AllCards() {
           )}
           {/* Filtra pelo attributes incluindo as spells e traps */}
           {attributes.map((attribute) => (
-            <label htmlFor={attribute} key={attribute}>
+            <label htmlFor={attribute} key={attribute} id={`label-${attribute}`}>
               <input
                 id={attribute}
                 type="radio"
@@ -169,7 +169,7 @@ export default function AllCards() {
           ))}
           {/* Habilita o filtro de level se type for diferente de xyz e link */}
           {filterType.value !== 'XYZ' && filterType.value !== 'Link' && filterType.value && (
-            <label htmlFor="level" className={style.containerRankLevel}>
+            <label htmlFor="level" className={style.containerRankLevel} id='label-level'>
               <input
                 id='level'
                 type="radio"
@@ -185,7 +185,7 @@ export default function AllCards() {
         {filterRankOrLevel.value === 'rank' && (
           <div className={style.containerRanks}>
             {ranks.map((rank) => (
-              <label htmlFor={rank} key={rank}>
+              <label htmlFor={rank} key={rank} id={`label-${rank}`}>
                 <input
                   id={rank}
                   type="radio"
@@ -202,7 +202,7 @@ export default function AllCards() {
         {filterRankOrLevel.value === 'level' && (
           <div className={style.containerLevels}>
             {levels.map((level) => (
-              <label htmlFor={level} key={level}>
+              <label htmlFor={level} key={level} id={`label-${level}`}>
                 <input
                   id={level}
                   type="radio"
@@ -217,7 +217,7 @@ export default function AllCards() {
         )}
         {/* Filtra pelo Link */}
         {filterType.value === 'Link' && (
-          <select value={filterLink.value} onChange={filterLink.handleChange}>
+          <select title='Filter Links' value={filterLink.value} onChange={filterLink.handleChange}>
             {links.map((link, index) => (
               <option key={index} value={link}>{link ? `LINK - ${link}` : 'select link value'}</option>
             ))}
