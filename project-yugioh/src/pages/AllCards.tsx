@@ -86,6 +86,18 @@ export default function AllCards() {
       setState(value);
     }
   };
+
+  const handleClearFilters = () => {
+    filterArchetype.setValue('')
+    filterAtr.setValue('')
+    filterLevel.setValue('')
+    filterLink.setValue('')
+    filterName.setValue('')
+    filterRace.setValue('')
+    filterRankOrLevel.setValue('')
+    filterSearch.setValue(false)
+    filterType.setValue('')
+  };
   
   const races = ["", "Aqua", "Beast", "Cyberse", "Dinosaur", "Divine-Beast", "Dragon", "Fairy", "Fiend", "Fish", "Insect", "Machine", "Plant", "Psychic", "Reptile", "Rock", "Sea Serpent", "Spellcaster", "Thunder", "War Machine", "Warrior", "Winged Beast", "Zombie"];
   const types = ["", "Normal", "Effect", "Fusion", "Ritual", "Synchro", "XYZ", "Pendulum", "Link"]
@@ -100,6 +112,7 @@ export default function AllCards() {
 
   return (
     <>
+      <button className={style.btnClear} onClick={() => handleClearFilters()}>Clear</button>
       <div className={style.containerFilters}>
         <div className={style.containerName}>
           <input 
@@ -142,7 +155,7 @@ export default function AllCards() {
         <div className={style.containerRadios}>
           {/* Habilita o filtro de rank se type for xyz */}
           {filterType.value === 'XYZ' && (
-            <label htmlFor="rank" id='label-rank' className={style.containerRankLevel}>
+            <label htmlFor="rank" id='label-rank' className={style.containerRank}>
               <input
                 id='rank'
                 type="radio"
@@ -169,7 +182,7 @@ export default function AllCards() {
           ))}
           {/* Habilita o filtro de level se type for diferente de xyz e link */}
           {filterType.value !== 'XYZ' && filterType.value !== 'Link' && filterType.value && (
-            <label htmlFor="level" className={style.containerRankLevel} id='label-level'>
+            <label htmlFor="level" className={style.containerLevel} id='label-level'>
               <input
                 id='level'
                 type="radio"

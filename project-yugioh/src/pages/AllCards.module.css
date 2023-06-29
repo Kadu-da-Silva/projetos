@@ -116,8 +116,14 @@ select:focus-visible {
   width: 50px;
 }
 /* Style Class */
-.containerRankLevel {
-  margin: 10px;
+.containerLevel {
+  position: absolute;
+  right: 40px;
+}
+
+.containerRank {
+  position: absolute;
+  left: 25px;
 }
 
 .containerLevels {
@@ -128,6 +134,15 @@ select:focus-visible {
 .containerRanks {
   margin: 10px;
   text-align: left;
+}
+
+
+/* Style buttons */
+.btnClear {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 20px;
+  right: 20px;
 }
 
 
