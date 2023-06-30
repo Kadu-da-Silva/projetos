@@ -5,8 +5,6 @@ import logo from '../images/logo.png'
 
 export default function Header() {
   const {pathname} = useLocation()
-  console.log(pathname);
-  
 
   return (
     <header className={style.header}>
@@ -33,7 +31,7 @@ export default function Header() {
             </button>
           </Link>
         )}
-        {pathname !== '/login' && (
+        {pathname === '/home' && (
           <Link to={'/login'}>
             <button>
               Login
