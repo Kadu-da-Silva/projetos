@@ -1,11 +1,8 @@
-import { SetStateAction, useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import YugiohContext from '../context/YugiohContext'
 import { Card } from '../types/type'
 import ListCards from '../components/ListCards'
 import { imgAttribute } from '../components/utils/renderElements'
-import useHandleSelect from '../hooks/useHandleSelect'
-import useHandleRadio from '../hooks/useHandleRadio'
-import useHandleCheckbox from '../hooks/useHandleCheckbox'
 import useHandleChange from '../hooks/useHandleChange'
 import style from './AllCards.module.css'
 import { arrayArchetypes, attributes, levels, links, races, spells, traps, types } from '../data/arrays'
@@ -16,66 +13,63 @@ export default function AllCards() {
   const [cards, setCards] = useState<Card[]>([])
   const [filterError, setFilterError] = useState(false)
   const [loading, setLoading] = useState(true)
-  const filterRace = useHandleSelect('')
-  const filterType = useHandleSelect('')
-  const filterAtr = useHandleRadio('')
-  const filterRankOrLevel = useHandleRadio('')
-  const filterLevel = useHandleSelect('')
-  const filterArchetype = useHandleSelect('')
-  const filterSearch = useHandleCheckbox(false)
-  const filterName = useHandleChange('')
-  const filterLink = useHandleSelect('')
-  const filterSpellTrapType = useHandleSelect('')
+  const [filterRace, setFilterRace] = useHandleChange("")
+  const [filterType, setFilterType] = useHandleChange("")
+  const [filterAtr, setFilterAtr] = useHandleChange("")
+  const [filterLevel, setFilterLevel] = useHandleChange("")
+  const [filterArch, setFilterArch] = useHandleChange("")
+  const [filterName, setFilterName] = useHandleChange("")
+  const [filterLink, setFilterLink] = useHandleChange("")
+  const [filterSpellTrapType, setFilterST] = useHandleChange("")
+  const [filterSearch, setFilterSearch] = useHandleChange(false)
 
   useEffect(() => {
     const filters = {
-      filterArchetype: filterArchetype.value,
-      filterAtr: filterAtr.value,
-      filterLevel: filterLevel.value,
-      filterLink: filterLink.value,
-      filterName: filterName.value,
-      filterRace: filterRace.value,
-      filterSpellTrapType: filterSpellTrapType.value,
-      filterType: filterType.value
+      filterArchetype: filterArch,
+      filterAtr: filterAtr,
+      filterLevel: filterLevel,
+      filterLink: filterLink,
+      filterName: filterName,
+      filterRace: filterRace,
+      filterSpellTrapType: filterSpellTrapType,
+      filterType: filterType
     }
 
-    const filteredCards = filter(cardList, filters, filterSearch.value)
-
+    const filteredCards = filter(cardList, filters, filterSearch)
     setCards(filteredCards)
+
     if (filteredCards.length) setLoading(false)
+
     if (filteredCards.length === 0 && filteredCards) {
       setFilterError(true)
     } else {
       setFilterError(false)
     }
-    document.title = 'Yu-Gi-Oh Cards'
-  }, [cardList,filterRace.value,filterType.value,filterAtr.value,filterRankOrLevel.value,filterLevel.value,filterArchetype.value,filterSearch.value,filterName.value,filterLink.value,filterSpellTrapType.value])
 
-  const handleRadioClick = (
-      value: string, 
-      state: string, 
-      setState: { (value: SetStateAction<string>): void; (arg0: string): void }
-    ) => {
-    if (state === value) {
+    document.title = 'Yu-Gi-Oh Cards'
+
+  }, [cardList,filterRace,filterType,filterAtr,filterLevel,filterArch,filterSearch,filterName,filterLink,filterSpellTrapType])
+
+  const handleRadioClick = (value: string) => {
+    if (filterAtr === value) {
       // Se o input já estiver selecionado, desmarque-o
-      setState("");
+      setFilterAtr("");
     } else {
       // Caso contrário, marque-o com o valor do atributo
-      setState(value);
+      setFilterAtr(value);
     }
   };
 
   const handleClearFilters = () => {
-    filterArchetype.setValue('')
-    filterAtr.setValue('')
-    filterLevel.setValue('')
-    filterLink.setValue('')
-    filterName.setValue('')
-    filterRace.setValue('')
-    filterRankOrLevel.setValue('')
-    filterSearch.setValue(false)
-    filterType.setValue('')
-    filterSpellTrapType.setValue('')
+    setFilterArch("")
+    setFilterAtr("")
+    setFilterLevel("")
+    setFilterLink("")
+    setFilterName("")
+    setFilterRace("")
+    setFilterSearch(false)
+    setFilterType("")
+    setFilterST("")
   };
 
   if (loading) {
@@ -88,36 +82,36 @@ export default function AllCards() {
         <div className={style.containerName}>
           <input 
             type="text"
-            value={filterName.value}
-            onChange={filterName.handleChange}
+            value={filterName}
+            onChange={(e) => setFilterName(e.target.value)}
             placeholder='Search for Name'
           />
           {/* Procura o input no description */}
-          {filterName.value && (
+          {filterName && (
               <label htmlFor="search" id='label-search'>
                 <input 
                   type="checkbox" 
                   id="search" 
-                  checked={filterSearch.value}
-                  onChange={filterSearch.handleChange}
+                  checked={filterSearch}
+                  onChange={(e) => setFilterSearch(e.target.checked)}
                 /> Search for Name in Description
               </label>
           )}
         </div>
         {/* Filtra pelas races */}
-        <select title='Filter Races' value={filterRace.value} onChange={filterRace.handleChange}>
+        <select title='Filter Races' value={filterRace} onChange={(e) => setFilterRace(e.target.value)}>
           {races.sort().map((race) => (
             <option key={race} value={race}>{race ? race : 'Select Breed'}</option>
           ))}
         </select>
         {/* Filtra pelos types */}
-        <select title='Filter Types' value={filterType.value} onChange={filterType.handleChange}>
+        <select title='Filter Types' value={filterType} onChange={(e) => setFilterType(e.target.value)}>
           {types.map((type) => (
             <option key={type} value={type}>{type ? type : 'Select Type'}</option>
           ))}
         </select>
         {/* Filtra pelos archetypes */}
-        <select title='Filter Archetypes' value={filterArchetype.value} onChange={filterArchetype.handleChange}>
+        <select title='Filter Archetypes' value={filterArch} onChange={(e) => setFilterArch(e.target.value)}>
           {arrayArchetypes(cardList).map((archetype) => (
             <option key={archetype} value={archetype}>{archetype ? archetype : 'Select Archetype'}</option>
           ))}
@@ -130,42 +124,39 @@ export default function AllCards() {
               <input
                 id={attribute}
                 type="radio"
-                value={attribute}
-                checked={filterAtr.value === attribute}
-                onChange={() => console.log('change attribute')}
-                onClick={ () => handleRadioClick(attribute, filterAtr.value, filterAtr.setValue) }
+                onClick={ () => handleRadioClick(attribute) }
               />
-              <img src={imgAttribute(attribute)} alt={attribute} className={filterAtr.value === attribute ? style.imgFocus : style.imgAll}/>
+              <img src={imgAttribute(attribute)} alt={attribute} className={filterAtr === attribute ? style.imgFocus : style.imgAll}/>
             </label>
           ))}
         </div>
         {/* Filtra pelo level */}
-        {filterType.value && filterType.value !== 'Link' && (
-          <select title='Filter Levels' value={filterLevel.value} onChange={filterLevel.handleChange}>
+        {filterType && filterType !== 'Link' && (
+          <select title='Filter Levels' value={filterLevel} onChange={(e) => setFilterLevel(e.target.value)}>
             {levels.map((level, index) => (
               <option key={index} value={level}>{level ? `Level - ${level}` : 'Select Level'}</option>
             ))}
           </select>
         )}
         {/* Filtra pelo link */}
-        {filterType.value === 'Link' && (
-          <select title='Filter Links' value={filterLink.value} onChange={filterLink.handleChange}>
+        {filterType === 'Link' && (
+          <select title='Filter Links' value={filterLink} onChange={(e) => setFilterLink(e.target.value)}>
             {links.map((link, index) => (
               <option key={index} value={link}>{link ? `LINK - ${link}` : 'Select Link'}</option>
             ))}
           </select>
         )}
         {/* Filtra spells */}
-        {filterAtr.value === 'spell' && (
-          <select title='Filter Spells' value={filterSpellTrapType.value} onChange={filterSpellTrapType.handleChange}>
+        {filterAtr === 'spell' && (
+          <select title='Filter Spells' value={filterSpellTrapType} onChange={(e) => setFilterST(e.target.value)}>
             {spells.map((type, index) => (
               <option key={index} value={type}>{type ? type : 'Select Type'}</option>
             ))}
           </select>
         )}
         {/* Filtra traps */}
-        {filterAtr.value === 'trap' && (
-          <select title='Filter Spells' value={filterSpellTrapType.value} onChange={filterSpellTrapType.handleChange}>
+        {filterAtr === 'trap' && (
+          <select title='Filter Spells' value={filterSpellTrapType} onChange={(e) => setFilterST(e.target.value)}>
             {traps.map((type, index) => (
               <option key={index} value={type}>{type ? type : 'Select Type'}</option>
             ))}
@@ -173,10 +164,10 @@ export default function AllCards() {
         )}
       </div>
       {/* Limpar filtros habilitado ao selecionar os selects de subtipos */}
-      {/* Mensagem de erro caso os filtros nao retornem null */}
-      {filterName.value || filterLevel.value || filterSpellTrapType.value || filterLink.value ? (
+      {filterName !== '' || filterLevel !== '' || filterSpellTrapType !== '' || filterLink !== '' || filterError ? (
         <button className={style.btnClear} onClick={() => handleClearFilters()}>Clean Filters</button>
-      ) : <div/>}
+      ) : <div className={style.pAllCards}/>}
+      {/* Mensagem de erro caso os filtros nao retornem null */}
       {filterError && <h2>No cards match your filter</h2>}
       {/* Componente renderiza lista de cards */}
       <ListCards cards={cards}/>

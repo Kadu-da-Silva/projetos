@@ -1,4 +1,5 @@
 .container {
+  margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -41,7 +42,7 @@
 
 .cardsLength {
   position: fixed;
-  top: 20px;
+  bottom: 20px;
   left: 20px;
   border-radius: 8px;
   border: 1px solid transparent;

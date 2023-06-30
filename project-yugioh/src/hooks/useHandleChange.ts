@@ -1,11 +1,20 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 
-export default function useHandleChange(initialValue: string) {
-  const [value, setValue] = useState(initialValue);
+type EventHandler<T> = (value: T) => void;
 
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setValue(e.target.value);
+// Sobrecargas do tipo genérico para lidar com diferentes tipos de entrada
+function useHandleChange(initialValue: string): [string, EventHandler<string>];
+function useHandleChange(initialValue: number): [number, EventHandler<number>];
+function useHandleChange(initialValue: boolean): [boolean, EventHandler<boolean>];
+
+function useHandleChange<T>(initialValue: T): [T, EventHandler<T>] {
+  const [value, setValue] = useState<T>(initialValue);
+
+  const handleChange: EventHandler<T> = (event) => {
+    setValue(event);
   }
 
-  return { value, setValue, handleChange };
+  return [value, handleChange];
 }
+
+export default useHandleChange;
