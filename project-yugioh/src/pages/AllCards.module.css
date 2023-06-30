@@ -83,8 +83,7 @@ select:focus-visible {
 
 /* Style Class */
 .containerLevel {
-  position: absolute;
-  right: 40px;
+  position: relative;
 }
 
 .containerRank {
