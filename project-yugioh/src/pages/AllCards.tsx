@@ -84,7 +84,6 @@ export default function AllCards() {
 
   return (
     <>
-      <button className={style.btnClear} onClick={() => handleClearFilters()}>Clean Filters</button>
       <div className={style.containerFilters}>
         <div className={style.containerName}>
           <input 
@@ -173,8 +172,12 @@ export default function AllCards() {
           </select>
         )}
       </div>
+      {/* Limpar filtros habilitado ao selecionar os selects de subtipos */}
       {/* Mensagem de erro caso os filtros nao retornem null */}
-      {filterError && <div>No cards match your filter</div>}
+      {filterName.value || filterLevel.value || filterSpellTrapType.value || filterLink.value ? (
+        <button className={style.btnClear} onClick={() => handleClearFilters()}>Clean Filters</button>
+      ) : <div/>}
+      {filterError && <h2>No cards match your filter</h2>}
       {/* Componente renderiza lista de cards */}
       <ListCards cards={cards}/>
     </>
