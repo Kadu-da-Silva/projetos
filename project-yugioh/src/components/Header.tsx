@@ -26,17 +26,17 @@ export default function Header() {
             </button>
           </Link>
         )}
-        {pathname !== '/login' && (
-          <Link to={'/login'}>
-            <button>
-              Login
-            </button>
-          </Link>
-        )}
         {pathname !== '/deck' && (
           <Link to={'/deck'}>
             <button>
               Deck
+            </button>
+          </Link>
+        )}
+        {pathname !== '/login' && (
+          <Link to={'/login'}>
+            <button>
+              Login
             </button>
           </Link>
         )}

@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react';
 import YugiohContext from '../context/YugiohContext';
 import { useParams } from 'react-router-dom';
 import RenderDetails from '../components/RenderDetails';
+import Header from '../components/Header';
 
 export default function Card() {
   const {cardList} = useContext(YugiohContext)
@@ -25,6 +26,7 @@ export default function Card() {
 
   return (
     <>
+      <Header />
       <section>
         {card && <RenderDetails card={card} />}
       </section>
