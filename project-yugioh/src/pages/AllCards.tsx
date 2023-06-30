@@ -10,14 +10,14 @@ import useHandleChange from '../hooks/useHandleChange'
 import rankImg from '../images/star-rank.png'
 import levelImg from '../images/star-level.png'
 import style from './AllCards.module.css'
-import { attributes, levels, links, races, ranks, typeSpellAndTrap, types } from '../data/arrays'
+import { arrayArchetypes, attributes, levels, links, races, ranks, typeSpellAndTrap, types } from '../data/arrays'
+import filter from '../components/utils/filter'
 
 export default function AllCards() {
   const { cardList } = useContext(YugiohContext)
   const [cards, setCards] = useState<Card[]>([])
   const [filterError, setFilterError] = useState(false)
   const [loading, setLoading] = useState(true)
-  const [archetypesState, setArchetypes] = useState([''])
   const filterRace = useHandleSelect('')
   const filterType = useHandleSelect('')
   const filterAtr = useHandleRadio('')
@@ -30,28 +30,20 @@ export default function AllCards() {
   const filterSpellTrapType = useHandleRadio('')
 
   useEffect(() => {
-    const cards = cardList
-    const archetypes: string[] = [""]
+    const filters = {
+      filterArchetype: filterArchetype.value,
+      filterAtr: filterAtr.value,
+      filterLevel: filterLevel.value,
+      filterLink: filterLink.value,
+      filterName: filterName.value,
+      filterRace: filterRace.value,
+      filterSpellTrapType: filterSpellTrapType.value,
+      filterType: filterType.value
+    }
 
-    // A função filteredCards retorna true se algum filtro corresponder
-    //Se ambos os filtros não estiverem selecionados, a função retorna true para todas as cartas
-    const filteredCards = cards.filter((card: Card) => {
-      const raceMatch = filterRace.value ? card.race === filterRace.value : true
-      const typeMatch = filterType.value ? card.type.includes(filterType.value) : true
-      const attributeMatch = filterAtr.value ? card.attribute === filterAtr.value || filterAtr.value === card.frameType: true
-      const filterMonstersRank = filterRankOrLevel.value === 'rank' ? card.type.includes('XYZ') : true
-      const filterMonstersLevel = filterRankOrLevel.value === 'level' ? !card.type.includes('XYZ') : true
-      if (!archetypes.includes(card.archetype) && card.archetype !== undefined) archetypes.push(card.archetype)
-      const filterLevelMatch = filterLevel.value ? card.level === Number(filterLevel.value) : true
-      const filterArchetypeMatch = filterArchetype.value ? card.archetype === filterArchetype.value : true
-      const filterNameMatch = filterName.value && !filterSearch.value ? card.name.includes(filterName.value) : true
-      const filterSearchMatch = filterSearch.value ? card.desc.includes(filterName.value) : true
-      const filterLinkMatch = filterLink.value ? card.linkval === Number(filterLink.value) : true
-      const filterSpellTrapMatch = filterSpellTrapType.value ? card.race === filterSpellTrapType.value : true
-    return raceMatch&&typeMatch&&attributeMatch&&filterMonstersRank&&filterLevelMatch&&filterMonstersLevel&&filterArchetypeMatch&&filterSearchMatch&&filterNameMatch&&filterLinkMatch&&filterSpellTrapMatch
-    })
+    const filteredCards = filter(cardList, filters, filterSearch.value)
+
     setCards(filteredCards)
-    setArchetypes(archetypes)
     if (filteredCards.length) setLoading(false)
     if (filteredCards.length === 0 && filteredCards) {
       setFilterError(true)
@@ -87,13 +79,14 @@ export default function AllCards() {
     filterType.setValue('')
     filterSpellTrapType.setValue('')
   };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <>
-      <button className={style.btnClear} onClick={() => handleClearFilters()}>Clear</button>
+      <button className={style.btnClear} onClick={() => handleClearFilters()}>Clean Filters</button>
       <div className={style.containerFilters}>
         <div className={style.containerName}>
           <input 
@@ -128,7 +121,7 @@ export default function AllCards() {
         </select>
         {/* Filtra pelos archetypes */}
         <select title='Filter Archetypes' value={filterArchetype.value} onChange={filterArchetype.handleChange}>
-          {archetypesState.sort().map((archetype) => (
+          {arrayArchetypes(cardList).map((archetype) => (
             <option key={archetype} value={archetype}>{archetype ? archetype : 'select archetype'}</option>
           ))}
         </select>
