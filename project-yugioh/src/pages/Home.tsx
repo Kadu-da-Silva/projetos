@@ -2,6 +2,8 @@ import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import YugiohContext from "../context/YugiohContext";
 
+import style from './Home.module.css'
+
 export default function Home() {
   const { loading, error } = useContext(YugiohContext)
 
@@ -13,8 +15,9 @@ export default function Home() {
   if (error) return <div>Sorry, this page is not access</div>
 
   return (
-    <>
+    <div className={style.container}>
       <Header />
-    </>
+      <h1>Home</h1>
+    </div>
   )
 }

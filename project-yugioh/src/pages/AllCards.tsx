@@ -7,6 +7,7 @@ import useHandleChange from '../hooks/useHandleChange'
 import style from './AllCards.module.css'
 import { arrayArchetypes, attributes, levels, links, races, spells, traps, types } from '../data/arrays'
 import filter from '../components/utils/filter'
+import Header from '../components/Header'
 
 export default function AllCards() {
   const { cardList } = useContext(YugiohContext)
@@ -78,6 +79,7 @@ export default function AllCards() {
 
   return (
     <>
+      <Header/>
       <div className={style.containerFilters}>
         <div className={style.containerName}>
           <input 

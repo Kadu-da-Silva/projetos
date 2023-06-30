@@ -1,7 +1,7 @@
 .containerFilters {
   background-color: #1a1a1a;
   position: absolute;
-  top: 0;
+  top: 100px;
   left: 50%;
   transform: translateX(-50%);
   height: 250px;
@@ -83,11 +83,11 @@ select:focus-visible {
 /* Style buttons */
 .btnClear {
   background-color: rgba(0, 0, 0, 0.5);
-  margin-top: 250px;
+  margin-top: 355px;
 }
 
 .pAllCards {
-  margin-top: 260px;
+  margin-top: 355px;
 }
 
 
