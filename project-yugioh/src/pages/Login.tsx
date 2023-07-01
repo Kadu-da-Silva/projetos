@@ -1,4 +1,5 @@
 import { useContext, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import useHandleChange from "../hooks/useHandleChange";
 import { validarEmail, validarSenha } from "../components/utils/validation";
@@ -16,6 +17,7 @@ export default function Login() {
   const [errorMessage, setErrorMessage] = useHandleChange("");
 
   const {user, setUser} = useContext(YugiohContext)
+  const navigate = useNavigate()
   
   useEffect(() => {
     // Recuperar os dados do usuário do localStorage (se existirem) ao carregar a página
@@ -28,13 +30,13 @@ export default function Login() {
 
   const handleLogin = () => {
     if (!validarEmail(email)) {
-      console.log("Email inválido");
+      alert("Email inválido");
       setErrorMessage("Invalid email");
       return;
     }
   
     if (!validarSenha(password)) {
-      console.log("Senha inválida");
+      alert("Senha inválida");
       setErrorMessage("Invalid password");
       return;
     }
@@ -45,10 +47,11 @@ export default function Login() {
     );
 
     if (foundUser) {
-      console.log("Login successful!");
-      // Redirecionar o usuário para a página principal, por exemplo
+      console.log();
+      ("Login successful!");
+      navigate('/')
     } else {
-      console.log("Invalid email or password!");
+      alert("Invalid email or password!");
       setErrorMessage("Invalid email or password");
     }
   }
@@ -86,13 +89,16 @@ export default function Login() {
         "users",
         JSON.stringify([...user, newUser])
       );
+      setErrorMessage("Create account Success!")
+      setRenderForm(false)
     }
   }
 
   return (
     <div className={style.container}>
       <Header/>
-      <h2>{renderForm ? 'Welcome Duelist' : 'Duelist Ready?'}</h2>
+      {errorMessage && renderForm && <span>{errorMessage}</span>}
+      <h2>{renderForm ? 'Welcome' : 'Ready Duelist?'}</h2>
       {!renderForm && (
         <div className={style.containerInputs}>
           <input
@@ -109,11 +115,10 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
-          {email && password && (
+          {email && password && validarSenha(password) && validarEmail(email) && (
             <button
               id="btn-enter"
               type="submit"
-              disabled={!email || !password}
               onClick={() => handleLogin() }
             >
               Let's Duel
@@ -124,12 +129,12 @@ export default function Login() {
       {renderForm && (
         <form action="">
           <input
-          id="nickname"
-          type="nickname"
-          value={nickname}
-          onChange={(e) => setNickname(e.target.value)}
-          placeholder="Nickname"
-        />
+            id="nickname"
+            type="nickname"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            placeholder="Nickname"
+          />
         <input
           id="name"
           type="name"
@@ -144,6 +149,7 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
+        {!validarEmail(email) && email && <span>email incorrect</span>}
         <input
           id="password"
           type="password"
@@ -151,6 +157,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
+        {!validarSenha(password) && password && <span>password needs six characters: &,%,$,#,@,A,1</span>}
         <input
           id="confirm-password"
           type="password"
@@ -158,7 +165,7 @@ export default function Login() {
           onChange={(e) => setConfirmPass(e.target.value)}
           placeholder="Confirm Password"
         />
-        {confirmPass !== password && confirmPass && <span>Passwords do not match.</span>}
+        {confirmPass === password ? "password confirmed" : <span>password not confirmed</span>}
         <button
           id="btn-submit"
           type="button"

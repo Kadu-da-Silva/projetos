@@ -10,8 +10,8 @@ export default function Header() {
     <header className={style.header}>
       <img src={logo} alt="" />
       <div className={style.containerLinks}>
-        {pathname !== '/home' && (
-          <Link to={'/home'}>
+        {pathname !== '/' && (
+          <Link to={'/'}>
             <button>
               Home
             </button>
@@ -31,7 +31,7 @@ export default function Header() {
             </button>
           </Link>
         )}
-        {pathname === '/home' && (
+        {pathname === '/' && (
           <Link to={'/login'}>
             <button>
               Login

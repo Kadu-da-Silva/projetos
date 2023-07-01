@@ -19,13 +19,19 @@
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.container button {
+  margin: 10px;
+}
+
+.container span {
+  color: red;
+  font-size: 10pt;
+  text-align: justify;
+}
+
 .container form {
   display: flex;
   flex-direction: column;
-}
-
-.container button {
-  margin: 10px;
 }
 
 .containerInputs {
