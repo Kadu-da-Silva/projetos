@@ -1,7 +1,10 @@
+import { useContext, useEffect } from "react";
 import Header from "../components/Header";
 import useHandleChange from "../hooks/useHandleChange";
+import { validarEmail, validarSenha } from "../components/utils/validation";
 
 import style from './Login.module.css'
+import YugiohContext from "../context/YugiohContext";
 
 export default function Login() {
   const [email, setEmail] = useHandleChange("")
@@ -9,14 +12,81 @@ export default function Login() {
   const [renderForm, setRenderForm] = useHandleChange(false)
   const [name, setName] = useHandleChange("")
   const [nickname, setNickname] = useHandleChange("")
-  const [confirmPass, setConfirmPass] = useHandleChange(false)
+  const [confirmPass, setConfirmPass] = useHandleChange("")
+  const [errorMessage, setErrorMessage] = useHandleChange("");
 
-  const handleEnter = () => {
-    console.log('login');
+  const {user, setUser} = useContext(YugiohContext)
+  
+  useEffect(() => {
+    // Recuperar os dados do usuário do localStorage (se existirem) ao carregar a página
+    const storedUsers = localStorage.getItem("users");
+    if (storedUsers) {
+      const parsedUsers = JSON.parse(storedUsers);
+      setUser(parsedUsers);
+    }
+  }, [setUser]);
+
+  const handleLogin = () => {
+    if (!validarEmail(email)) {
+      console.log("Email inválido");
+      setErrorMessage("Invalid email");
+      return;
+    }
+  
+    if (!validarSenha(password)) {
+      console.log("Senha inválida");
+      setErrorMessage("Invalid password");
+      return;
+    }
+
+    // Verificar se os dados de login estão corretos
+    const foundUser = user.find(
+      (u) => u.email === email && u.password === password
+    );
+
+    if (foundUser) {
+      console.log("Login successful!");
+      // Redirecionar o usuário para a página principal, por exemplo
+    } else {
+      console.log("Invalid email or password!");
+      setErrorMessage("Invalid email or password");
+    }
   }
 
   const handleFormSubmit = () => {
-    console.log('new user');
+    if (!validarEmail(email)) {
+      console.log("Email inválido");
+      setErrorMessage("Invalid email");
+      return;
+    }
+  
+    if (!validarSenha(password)) {
+      console.log("Senha inválida");
+      setErrorMessage("Invalid password");
+      return;
+    }
+
+    // Verificar se algum dos dados já existe
+    const existingUser = user.find((u) => u.email === email || u.nickname === nickname);
+
+    if (existingUser) {
+      console.log("Email or nickname already exists!");
+      setErrorMessage("Email or nickname already exists");
+    } else {
+      const newUser = {
+        nickname: nickname,
+        name: name,
+        email: email,
+        password: password,
+      };
+
+      // Adicionar o novo usuário ao estado global 'user' e ao localStorage
+      setUser((prevUsers) => [...prevUsers, newUser]);
+      localStorage.setItem(
+        "users",
+        JSON.stringify([...user, newUser])
+      );
+    }
   }
 
   return (
@@ -44,9 +114,9 @@ export default function Login() {
               id="btn-enter"
               type="submit"
               disabled={!email || !password}
-              onClick={() => handleEnter() }
+              onClick={() => handleLogin() }
             >
-              Let\'s Duel
+              Let's Duel
             </button>
           )}
         </div>
@@ -84,14 +154,15 @@ export default function Login() {
         <input
           id="confirm-password"
           type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={confirmPass}
+          onChange={(e) => setConfirmPass(e.target.value)}
           placeholder="Confirm Password"
         />
+        {confirmPass !== password && confirmPass && <span>Passwords do not match.</span>}
         <button
           id="btn-submit"
-          type="submit"
-          disabled={!nickname || !name || !email || !password}
+          type="button"
+          disabled={!nickname || !name || !email || !password || password !== confirmPass}
           onClick={() => handleFormSubmit()}
         >
           Create Account

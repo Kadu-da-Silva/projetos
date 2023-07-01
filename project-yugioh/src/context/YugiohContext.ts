@@ -1,11 +1,13 @@
 import { Dispatch, SetStateAction, createContext } from "react";
-import { Card } from "../types/type";
+import { Card, User } from "../types/type";
 
 type GlobalContent = {
   cardList: Card[],
   setCardList: Dispatch<SetStateAction<Card[]>>,
   loading: boolean,
   error: boolean,
+  user: User[],
+  setUser: Dispatch<SetStateAction<User[]>>,
 }
 
 const YugiohContext = createContext<GlobalContent>({
@@ -13,6 +15,8 @@ const YugiohContext = createContext<GlobalContent>({
   setCardList: () => {[]},
   loading: false,
   error: false,
+  user: [],
+  setUser: () => {[]},
 })
 
 export default YugiohContext;

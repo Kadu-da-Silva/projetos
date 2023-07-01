@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useState } from "react"
-import { Card } from "../types/type"
+import { Card, User } from "../types/type"
 import { URL } from './../services/fetchYugioh';
 import YugiohContext from './YugiohContext';
 
@@ -10,6 +10,7 @@ const YugiohProvider = ({children}: Props) => {
   const [cardList, setCardList] = useState<Card[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
+  const [user, setUser] = useState<User[]>([])
   
 
   async function fetchYugioh(url: string): Promise<void> {
@@ -31,7 +32,7 @@ const YugiohProvider = ({children}: Props) => {
   }, [])
 
   return (
-    <YugiohContext.Provider value={{cardList, setCardList, loading, error}}>
+    <YugiohContext.Provider value={{cardList, setCardList, loading, error, user, setUser}}>
       {children}
     </YugiohContext.Provider>
   )

@@ -33,9 +33,9 @@ export type Card = {
   }[];
 }
 
-export type Images = {
-  card_images: {
-    id: number;
-    image_url: string;
-  }[];
-}
+export type User = {
+  nickname: string;
+  name: string;
+  email: string;
+  password: string;
+};
