@@ -10,7 +10,7 @@ export default function Header() {
   const {pathname} = useLocation()
 
   const { user } = useContext(YugiohContext)
-  const { nickname } = user[0]
+  const nickname = user[0] ? user[0].nickname : 'login'
   const navigate = useNavigate()
   
   const [isMenuOpen, setIsMenuOpen] = useHandleChange(false)
@@ -23,6 +23,8 @@ export default function Header() {
 
   const handleMenuItemClick = (opt: string) => {
     if (opt === 'Logout') {
+      navigate('/')
+      localStorage.setItem("isLoggedIn", "false");
       setIsLoggedIn(false)
       setIsMenuOpen(false)
     }

@@ -77,11 +77,11 @@ export default function Login() {
       // Adicionar o novo usuário ao localStorage
       localStorage.setItem("users", JSON.stringify([...users, newUser]));
 
-      // Habilitar login e zerar campos
-      setRenderForm(false)
-      setErrorMessage('')
-      setEmail('')
-      setPassword('')
+      navigate('/')
+      // Chave para iniciar sessão
+      localStorage.setItem("isLoggedIn", "true");
+      // Dados do usuário que logou
+      setUser([newUser]);
     }
   }
 
