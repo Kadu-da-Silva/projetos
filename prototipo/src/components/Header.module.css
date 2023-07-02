@@ -1,0 +1,63 @@
+/* Estilos para todos os tamanhos de tela */
+.header {
+  align-items: center;
+  background-color: #1a1a1a;
+  display: flex;
+  height: 80px;
+  justify-content: center;
+  width: 100vw;
+}
+
+.header code {
+  left: auto;
+  position: absolute;
+  right: auto;
+}
+
+.containerLinks {
+  margin-left: auto;
+}
+
+.containerLinks span {
+  margin-right: 20px;
+}
+
+.containerImages img {
+  margin-right: auto;
+  width: 50px;
+}
+
+/* Estilos para smartphones em retrato */
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  /* Adicione aqui os estilos específicos para smartphones em retrato */
+}
+
+/* Estilos para smartphones em paisagem */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+  /* Adicione aqui os estilos específicos para smartphones em paisagem */
+}
+
+/* Estilos para tablets em retrato */
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  /* Adicione aqui os estilos específicos para tablets em retrato */
+}
+
+/* Estilos para tablets em paisagem */
+@media only screen and (min-width: 1024px) and (max-width: 1279px) {
+  /* Adicione aqui os estilos específicos para tablets em paisagem */
+}
+
+/* Estilos para telas pequenas */
+@media only screen and (min-width: 1280px) and (max-width: 1439px) {
+  /* Adicione aqui os estilos específicos para telas pequenas */
+}
+
+/* Estilos para telas médias */
+@media only screen and (min-width: 1440px) and (max-width: 1919px) {
+  /* Adicione aqui os estilos específicos para telas médias */
+}
+
+/* Estilos para telas grandes */
+@media only screen and (min-width: 1920px) {
+  /* Adicione aqui os estilos específicos para telas grandes */
+}
