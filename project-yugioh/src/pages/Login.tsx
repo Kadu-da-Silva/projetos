@@ -1,11 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Header from "../components/Header";
 import useHandleChange from "../hooks/useHandleChange";
-import { validarEmail, validarSenha } from "../components/utils/validation";
+import { validEmail, validPassword } from "../components/utils/validation";
 
 import style from './Login.module.css'
 import YugiohContext from "../context/YugiohContext";
+import { User } from "../types/type";
 
 export default function Login() {
   const [email, setEmail] = useHandleChange("")
@@ -16,7 +17,11 @@ export default function Login() {
   const [confirmPass, setConfirmPass] = useHandleChange("")
   const [errorMessage, setErrorMessage] = useHandleChange("");
 
-  const {user, setUser} = useContext(YugiohContext)
+  // Dados do LocalStorage convertidos para JSON
+  const [users, setUsers] = useState<User[]>([]) // Lida com vários users
+
+  // Estado global com os dados do usuário que logou
+  const {setUser} = useContext(YugiohContext)
   const navigate = useNavigate()
   
   useEffect(() => {
@@ -24,57 +29,43 @@ export default function Login() {
     const storedUsers = localStorage.getItem("users");
     if (storedUsers) {
       const parsedUsers = JSON.parse(storedUsers);
-      setUser(parsedUsers);
+      setUsers(parsedUsers);
     }
-  }, [setUser]);
+  }, [setUsers]);
 
   const handleLogin = () => {
-    if (!validarEmail(email)) {
-      alert("Email inválido");
-      setErrorMessage("Invalid email");
-      return;
-    }
-  
-    if (!validarSenha(password)) {
-      alert("Senha inválida");
-      setErrorMessage("Invalid password");
-      return;
-    }
-
     // Verificar se os dados de login estão corretos
-    const foundUser = user.find(
+    const foundUser = users.find(
       (u) => u.email === email && u.password === password
     );
 
+    // Verificar se existe algum usuario com os dados
     if (foundUser) {
-      console.log();
-      ("Login successful!");
       navigate('/')
+      // Chave para iniciar sessão
+      localStorage.setItem("isLoggedIn", "true");
+      // Dados do usuário que logou
+      const userDates = {
+        nickname: foundUser.nickname,
+        name: foundUser.name,
+        email: foundUser.email,
+        password: foundUser.password
+      }
+      setUser([userDates]);
     } else {
-      alert("Invalid email or password!");
       setErrorMessage("Invalid email or password");
     }
   }
 
   const handleFormSubmit = () => {
-    if (!validarEmail(email)) {
-      console.log("Email inválido");
-      setErrorMessage("Invalid email");
-      return;
-    }
-  
-    if (!validarSenha(password)) {
-      console.log("Senha inválida");
-      setErrorMessage("Invalid password");
-      return;
-    }
-
     // Verificar se algum dos dados já existe
-    const existingUser = user.find((u) => u.email === email || u.nickname === nickname);
+    const existingNick = users.find((u) => u.nickname === nickname);
+    const existingEmail = users.find((u) => u.email === email);
 
-    if (existingUser) {
-      console.log("Email or nickname already exists!");
-      setErrorMessage("Email or nickname already exists");
+    if (existingNick) {
+      setErrorMessage("Nickname already exists");
+    } else if (existingEmail) {
+      setErrorMessage("Email already exists");
     } else {
       const newUser = {
         nickname: nickname,
@@ -83,14 +74,14 @@ export default function Login() {
         password: password,
       };
 
-      // Adicionar o novo usuário ao estado global 'user' e ao localStorage
-      setUser((prevUsers) => [...prevUsers, newUser]);
-      localStorage.setItem(
-        "users",
-        JSON.stringify([...user, newUser])
-      );
-      setErrorMessage("Create account Success!")
+      // Adicionar o novo usuário ao localStorage
+      localStorage.setItem("users", JSON.stringify([...users, newUser]));
+
+      // Habilitar login e zerar campos
       setRenderForm(false)
+      setErrorMessage('')
+      setEmail('')
+      setPassword('')
     }
   }
 
@@ -101,6 +92,7 @@ export default function Login() {
       <h2>{renderForm ? 'Welcome' : 'Ready Duelist?'}</h2>
       {!renderForm && (
         <div className={style.containerInputs}>
+          {errorMessage && <span>{errorMessage}</span>}
           <input
             id="email"
             type="email"
@@ -115,7 +107,7 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
           />
-          {email && password && validarSenha(password) && validarEmail(email) && (
+          {email && password && validPassword(password) && validEmail(email) && (
             <button
               id="btn-enter"
               type="submit"
@@ -135,6 +127,7 @@ export default function Login() {
             onChange={(e) => setNickname(e.target.value)}
             placeholder="Nickname"
           />
+          {errorMessage.includes('Nickname') && <span>{errorMessage}</span>}
         <input
           id="name"
           type="name"
@@ -149,7 +142,8 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
         />
-        {!validarEmail(email) && email && <span>email incorrect</span>}
+        {!validEmail(email) && email && <span>email incorrect</span>}
+        {errorMessage.includes('Email') && <span>{errorMessage}</span>}
         <input
           id="password"
           type="password"
@@ -157,7 +151,7 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
         />
-        {!validarSenha(password) && password && <span>password needs six characters: &,%,$,#,@,A,1</span>}
+        {!validPassword(password) && password && <span>password need more six characters and a: &,%,$,#,@,A,1</span>}
         <input
           id="confirm-password"
           type="password"
@@ -165,7 +159,7 @@ export default function Login() {
           onChange={(e) => setConfirmPass(e.target.value)}
           placeholder="Confirm Password"
         />
-        {confirmPass === password ? "password confirmed" : <span>password not confirmed</span>}
+        {confirmPass && confirmPass !== password && <span>password not confirmed</span>}
         <button
           id="btn-submit"
           type="button"
@@ -179,7 +173,15 @@ export default function Login() {
       <button
         id="btn-confirm"
         type="button"
-        onClick={() => setRenderForm(!renderForm)}
+        onClick={() => {
+          setRenderForm(!renderForm)
+          setNickname('')
+          setName('')
+          setErrorMessage('')
+          setEmail('')
+          setPassword('')
+          setConfirmPass('')
+        }}
       >
         {renderForm ? 'I have Account' : 'I haven\'t Account'}
       </button>

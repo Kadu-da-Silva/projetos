@@ -1,4 +1,4 @@
-export function validarEmail(email: string): boolean {
+export function validEmail(email: string): boolean {
   // Expressão regular para validar o formato do email
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // Verificar se o email corresponde ao formato esperado
@@ -9,7 +9,7 @@ export function validarEmail(email: string): boolean {
   return true;
 }
 
-export function validarSenha(pass: string): boolean {
+export function validPassword(pass: string): boolean {
   // Verificar se a senha tem mais de 6 caracteres
   if (pass.length < 6) {
     return false;

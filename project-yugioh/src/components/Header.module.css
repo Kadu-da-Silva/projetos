@@ -9,9 +9,9 @@
 
 .header img {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 330px;
+  top: 10px;
+  left: 10px;
+  width: 200px;
 }
 
 .containerLinks {
@@ -20,13 +20,53 @@
   right: 10px;
 }
 
-.containerLinks button {
+.btnHeader {
   border: 0;
   border-radius: 0;
   margin: 1px;
+  transition: 0.55s;
+
 }
 
-.containerLinks button:hover {
+.btnHeader:hover {
   border:none;
   box-shadow: 0 3px 3px rgba(255, 255, 255, 0.5);
+}
+
+.btnMenu {
+  background-color: #333;
+  border: 0;
+  border-radius: 0;
+  margin-left: 5px;
+  height: 45px;
+  width: 180px;
+}
+
+.btnMenu:hover {
+  border:none;
+}
+
+.menu {
+  width: 180px;
+  position: absolute;
+  right: 0;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.menu ul {
+  background-color: #333;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu li {
+  padding: 2px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: 0.25s;
+}
+
+.menu li:hover {
+  background-color: #1a1a1a;
 }
