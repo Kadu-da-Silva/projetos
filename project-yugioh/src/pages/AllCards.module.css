@@ -1,18 +1,18 @@
 .containerFilters {
   background-color: #1a1a1a;
-  position: absolute;
-  top: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
-  height: 250px;
-  width: 700px;
-  z-index: 100; /* define uma pilha de camadas para garantir que o elemento fique acima dos outros elementos */
-  padding: 10px;
+  max-width: 700px;
+  text-align: center;
+  padding: 15px;
 }
 
 /* Style Selects */
 .containerFilters select {
-  position: relative;
   margin: 15px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -39,8 +39,6 @@ select:focus-visible {
 
 /* Style Inputs */
 .containerName input {
-  position: relative;
-  margin: 10px;
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -83,13 +81,7 @@ select:focus-visible {
 /* Style buttons */
 .btnClear {
   background-color: rgba(0, 0, 0, 0.5);
-  margin-top: 355px;
 }
-
-.pAllCards {
-  margin-top: 355px;
-}
-
 
 @media (prefers-color-scheme: light) {
   :root {

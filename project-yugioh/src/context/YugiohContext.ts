@@ -8,6 +8,8 @@ type GlobalContent = {
   error: boolean,
   user: User[],
   setUser: Dispatch<SetStateAction<User[]>>,
+  deck: Card[],
+  setDeck: Dispatch<SetStateAction<Card[]>>
 }
 
 const YugiohContext = createContext<GlobalContent>({
@@ -17,6 +19,8 @@ const YugiohContext = createContext<GlobalContent>({
   error: false,
   user: [],
   setUser: () => {[]},
+  deck: [],
+  setDeck: () => {[]},
 })
 
 export default YugiohContext;

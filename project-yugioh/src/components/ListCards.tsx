@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function ListCards({ cards }: Props) {
-  const [itemsToShow, setItemsToShow] = useState((15))
+  const [itemsToShow, setItemsToShow] = useState((105))
   // const [loading, setLoading] = useState(false);
   const [upIsVisible, setUpIsVisible] = useState(false);
   const [downIsVisible, setDownIsVisible] = useState(false);
@@ -27,7 +27,7 @@ export default function ListCards({ cards }: Props) {
       // const newItemsToShow = Math.round(scrollTop / 100) + 100; --- Muito Bug
 
       if (isAtBottom) setItemsToShow(itemsToShow + 15);
-      if (scrollTop === 0) setItemsToShow(15)
+      if (scrollTop === 0) setItemsToShow(105)
 
       setUpIsVisible(scrollTop > 1000);
       setDownIsVisible(scrollTop < 1000 && itemsToShow > 30);

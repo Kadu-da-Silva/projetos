@@ -101,23 +101,25 @@ export default function AllCards() {
           )}
         </div>
         {/* Filtra pelas races */}
-        <select title='Filter Races' value={filterRace} onChange={(e) => setFilterRace(e.target.value)}>
-          {races.sort().map((race) => (
-            <option key={race} value={race}>{race ? race : 'Select Breed'}</option>
-          ))}
-        </select>
-        {/* Filtra pelos types */}
-        <select title='Filter Types' value={filterType} onChange={(e) => setFilterType(e.target.value)}>
-          {types.map((type) => (
-            <option key={type} value={type}>{type ? type : 'Select Type'}</option>
-          ))}
-        </select>
-        {/* Filtra pelos archetypes */}
-        <select title='Filter Archetypes' value={filterArch} onChange={(e) => setFilterArch(e.target.value)}>
-          {arrayArchetypes(cardList).map((archetype) => (
-            <option key={archetype} value={archetype}>{archetype ? archetype : 'Select Archetype'}</option>
-          ))}
-        </select>
+        <div>
+          <select title='Filter Races' value={filterRace} onChange={(e) => setFilterRace(e.target.value)}>
+            {races.sort().map((race) => (
+              <option key={race} value={race}>{race ? race : 'Select Breed'}</option>
+            ))}
+          </select>
+          {/* Filtra pelos types */}
+          <select title='Filter Types' value={filterType} onChange={(e) => setFilterType(e.target.value)}>
+            {types.map((type) => (
+              <option key={type} value={type}>{type ? type : 'Select Type'}</option>
+            ))}
+          </select>
+          {/* Filtra pelos archetypes */}
+          <select title='Filter Archetypes' value={filterArch} onChange={(e) => setFilterArch(e.target.value)}>
+            {arrayArchetypes(cardList).map((archetype) => (
+              <option key={archetype} value={archetype}>{archetype ? archetype : 'Select Archetype'}</option>
+            ))}
+          </select>
+        </div>
         {/* Filtros do tipo radio */}
         <div className={style.containerRadios}>
           {/* Filtra pelo attributes incluindo as spells e traps */}
@@ -132,43 +134,47 @@ export default function AllCards() {
             </label>
           ))}
         </div>
-        {/* Filtra pelo level */}
-        {filterType && filterType !== 'Link' && (
-          <select title='Filter Levels' value={filterLevel} onChange={(e) => setFilterLevel(e.target.value)}>
-            {levels.map((level, index) => (
-              <option key={index} value={level}>{level ? `Level - ${level}` : 'Select Level'}</option>
-            ))}
-          </select>
-        )}
-        {/* Filtra pelo link */}
-        {filterType === 'Link' && (
-          <select title='Filter Links' value={filterLink} onChange={(e) => setFilterLink(e.target.value)}>
-            {links.map((link, index) => (
-              <option key={index} value={link}>{link ? `LINK - ${link}` : 'Select Link'}</option>
-            ))}
-          </select>
-        )}
-        {/* Filtra spells */}
-        {filterAtr === 'spell' && (
-          <select title='Filter Spells' value={filterSpellTrapType} onChange={(e) => setFilterST(e.target.value)}>
-            {spells.map((type, index) => (
-              <option key={index} value={type}>{type ? type : 'Select Type'}</option>
-            ))}
-          </select>
-        )}
-        {/* Filtra traps */}
-        {filterAtr === 'trap' && (
-          <select title='Filter Spells' value={filterSpellTrapType} onChange={(e) => setFilterST(e.target.value)}>
-            {traps.map((type, index) => (
-              <option key={index} value={type}>{type ? type : 'Select Type'}</option>
-            ))}
-          </select>
-        )}
-      </div>
-      {/* Limpar filtros habilitado ao selecionar os selects de subtipos */}
+        <div className={style.subTypes}>
+          {/* Filtra pelo level */}
+          {filterType && filterType !== 'Link' && (
+            <select title='Filter Levels' value={filterLevel} onChange={(e) => setFilterLevel(e.target.value)}>
+              {levels.map((level, index) => (
+                <option key={index} value={level}>{level ? `Level - ${level}` : 'Select Level'}</option>
+              ))}
+            </select>
+          )}
+          {/* Filtra pelo link */}
+          {filterType === 'Link' && (
+            <select title='Filter Links' value={filterLink} onChange={(e) => setFilterLink(e.target.value)}>
+              {links.map((link, index) => (
+                <option key={index} value={link}>{link ? `LINK - ${link}` : 'Select Link'}</option>
+              ))}
+            </select>
+          )}
+          {/* Filtra spells */}
+          {filterAtr === 'spell' && (
+            <select title='Filter Spells' value={filterSpellTrapType} onChange={(e) => setFilterST(e.target.value)}>
+              {spells.map((type, index) => (
+                <option key={index} value={type}>{type ? type : 'Select Type'}</option>
+              ))}
+            </select>
+          )}
+          {/* Filtra traps */}
+          {filterAtr === 'trap' && (
+            <select title='Filter Spells' value={filterSpellTrapType} onChange={(e) => setFilterST(e.target.value)}>
+              {traps.map((type, index) => (
+                <option key={index} value={type}>{type ? type : 'Select Type'}</option>
+              ))}
+            </select>
+          )}
+        </div>
+        {/* Limpar filtros habilitado ao selecionar os selects de subtipos */}
       {filterName !== '' || filterLevel !== '' || filterSpellTrapType !== '' || filterLink !== '' || filterError ? (
-        <button className={style.btnClear} onClick={() => handleClearFilters()}>Clean Filters</button>
-      ) : <div className={style.pAllCards}/>}
+        <button className={style.btnClear} onClick={() => handleClearFilters()}>
+          Clean Filters
+        </button>
+      ) : undefined}
+      </div>
       {/* Mensagem de erro caso os filtros nao retornem null */}
       {filterError && <h2>No cards match your filter</h2>}
       {/* Componente renderiza lista de cards */}
