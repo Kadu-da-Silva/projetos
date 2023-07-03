@@ -12,6 +12,7 @@ const YugiohProvider = ({children}: Props) => {
   const [error, setError] = useState(false)
   const [user, setUser] = useState<User[]>([])
   const [deck, setDeck] = useState<Card[]>([])
+  const [favorites, setFavorites] = useState<Card[]>([])
   
 
   async function fetchYugioh(url: string): Promise<void> {
@@ -33,7 +34,7 @@ const YugiohProvider = ({children}: Props) => {
   }, [])
 
   return (
-    <YugiohContext.Provider value={{cardList, setCardList, loading, error, user, setUser, deck, setDeck}}>
+    <YugiohContext.Provider value={{cardList, setCardList, loading, error, user, setUser, deck, setDeck, favorites, setFavorites}}>
       {children}
     </YugiohContext.Provider>
   )

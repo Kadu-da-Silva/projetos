@@ -9,7 +9,9 @@ type GlobalContent = {
   user: User[],
   setUser: Dispatch<SetStateAction<User[]>>,
   deck: Card[],
-  setDeck: Dispatch<SetStateAction<Card[]>>
+  setDeck: Dispatch<SetStateAction<Card[]>>,
+  favorites: Card[],
+  setFavorites: Dispatch<SetStateAction<Card[]>>,
 }
 
 const YugiohContext = createContext<GlobalContent>({
@@ -21,6 +23,8 @@ const YugiohContext = createContext<GlobalContent>({
   setUser: () => {[]},
   deck: [],
   setDeck: () => {[]},
+  favorites: [],
+  setFavorites: () => {[]},
 })
 
 export default YugiohContext;
