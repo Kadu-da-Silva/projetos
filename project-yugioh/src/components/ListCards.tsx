@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from '../types/type'
+import YugiohContext from '../context/YugiohContext'
 
 import style from './ListCards.module.css'
 import arrowUp from '../images/circle-2-svgrepo-com.svg'
 import arrowDown from '../images/circle-2-svgrepo-com (1).svg'
+import blackHeart from '../images/black-heart.svg'
+import whiteHeart from '../images/white-heart.svg'
 
 type Props = {
   cards: Card[];
@@ -15,6 +18,8 @@ export default function ListCards({ cards }: Props) {
   // const [loading, setLoading] = useState(false);
   const [upIsVisible, setUpIsVisible] = useState(false);
   const [downIsVisible, setDownIsVisible] = useState(false);
+  
+  const { favorites, setFavorites } = useContext(YugiohContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +62,19 @@ export default function ListCards({ cards }: Props) {
       behavior: 'smooth',
     });
   };
+
+  const handleFavoriteToggle = (card: Card) => {
+    if (isFavorite(card)) {
+      const updatedFavorites = favorites.filter((favoriteCard) => favoriteCard.id !== card.id);
+      setFavorites(updatedFavorites);
+    } else {
+      setFavorites([...favorites, card]);
+    }
+  };
+
+  const isFavorite = (card: Card) => {
+    return favorites.some((favoriteCard) => favoriteCard.id === card.id);
+  };
   
   return (
     <>
@@ -65,11 +83,17 @@ export default function ListCards({ cards }: Props) {
       : <span className={style.cardsLength}>{`${cards.length} / ${cards.length}`}</span>
       }
       <section className={style.container}>
-        {cards.slice(0, itemsToShow).map(({id, name, card_images}) => (
-          <div key={id} className={style.card}>
-            <Link to={`/card/${id}`} target="_blank">
-              <img key={id} src={card_images[0].image_url} alt={name} />
+        {cards.slice(0, itemsToShow).map((card) => (
+          <div key={card.id} className={style.card}>
+            <Link to={`/card/${card.id}`} target="_blank">
+              <img key={card.id} src={card.card_images[0].image_url} alt={card.name} />
             </Link>
+            <button className={style.btnFavorite} onClick={() => handleFavoriteToggle(card)}>
+              {isFavorite(card)
+                ? <img src={blackHeart} alt="Desfavoritar" />
+                : <img src={whiteHeart} alt="Favoritar" />
+              }
+            </button>
           </div>
         ))}
       </section>
