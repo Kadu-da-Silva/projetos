@@ -9,6 +9,7 @@
   display: inline-block;
   height: auto;
   margin: 5px;
+  position: relative;
   width: 240px;
 }
 
@@ -52,15 +53,35 @@
   font-family: inherit;
   background-color: rgba(0, 0, 0, 0.5);
   transition: border-color 0.25s;
+  z-index: 1;
 }
-/* 
+
 .btnFavorite {
   background-color: rgba(0, 0, 0, 0.0);
   border: none;
-  position: relative;
+  position: absolute;
+  top: 313px;
+  left: 0;
+  padding: 2px;
+  width: 35px;
+  z-index: 1;
+}
+
+.btnFavorite img {
+  width: 30px;
+}
+
+.btnDeck {
+  background-color: rgba(0, 0, 0, 0.0);
+  border: none;
+  position: absolute;
+  top: 313px;
+  left: 35px;
   padding: 0;
-  width: 50px;
-} */
+  width: 32px;
+  z-index: 1;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;

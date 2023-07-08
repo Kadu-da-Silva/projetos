@@ -2,24 +2,28 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import style from './Header.module.css'
 import logo from '../images/logo.png'
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import YugiohContext from '../context/YugiohContext';
-import useHandleChange from '../hooks/useHandleChange';
 
 export default function Header() {
   const {pathname} = useLocation()
 
   const { user } = useContext(YugiohContext)
-  const nickname = user[0] ? user[0].nickname : 'login'
+  const nickname = user[0] && user[0].nickname
   const navigate = useNavigate()
   
-  const [isMenuOpen, setIsMenuOpen] = useHandleChange(false)
-  const [isLoggedIn, setIsLoggedIn] = useHandleChange(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   useEffect(() => {
     const valueStorage = localStorage.getItem("isLoggedIn");
     if (valueStorage === 'true') setIsLoggedIn(true);
-  }, [])
+
+    if(!user[0]) {
+      setIsLoggedIn(false)
+      localStorage.setItem("isLoggedIn", "false");
+    }
+  }, [user])
 
   const handleMenuItemClick = (opt: string) => {
     if (opt === 'Logout') {
@@ -57,7 +61,7 @@ export default function Header() {
             </button>
           </Link>
         )}
-        {pathname === '/' && !isLoggedIn && (
+        {pathname !== '/login' && !isLoggedIn && (
           <Link to={'/login'}>
             <button className={style.btnHeader}>
               Login

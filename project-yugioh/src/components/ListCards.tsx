@@ -6,8 +6,10 @@ import YugiohContext from '../context/YugiohContext'
 import style from './ListCards.module.css'
 import arrowUp from '../images/circle-2-svgrepo-com.svg'
 import arrowDown from '../images/circle-2-svgrepo-com (1).svg'
-import blackHeart from '../images/black-heart.svg'
-import whiteHeart from '../images/white-heart.svg'
+import blackHeart from '../images/black-heart.png'
+import whiteHeart from '../images/white-heart.png'
+import removeIcon from '../images/add-circle-svgrepo-com.svg'
+import addIcon from '../images/remove-circle-svgrepo-com.svg'
 
 type Props = {
   cards: Card[];
@@ -18,8 +20,9 @@ export default function ListCards({ cards }: Props) {
   // const [loading, setLoading] = useState(false);
   const [upIsVisible, setUpIsVisible] = useState(false);
   const [downIsVisible, setDownIsVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   
-  const { favorites, setFavorites } = useContext(YugiohContext)
+  const { favorites, setFavorites, deck, setDeck } = useContext(YugiohContext)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,7 +48,13 @@ export default function ListCards({ cards }: Props) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
+
   }, [itemsToShow]);
+
+  useEffect(() => {
+    const valueStorage = localStorage.getItem("isLoggedIn");
+    if (valueStorage === 'true') setIsLoggedIn(true);
+  }, [])
 
   const scrollToTop = () => {
     // Faz o scroll suave para o topo da página
@@ -75,6 +84,19 @@ export default function ListCards({ cards }: Props) {
   const isFavorite = (card: Card) => {
     return favorites.some((favoriteCard) => favoriteCard.id === card.id);
   };
+
+  const handleDeckToggle = (card: Card) => {
+    if (isDeck(card)) {
+      const updatedDeck = deck.filter((deckCard) => deckCard.id !== card.id);
+      setDeck(updatedDeck);
+    } else {
+      setDeck([...deck, card]);
+    }
+  };
+
+  const isDeck = (card: Card) => {
+    return deck.some((deckCard) => deckCard.id === card.id);
+  };
   
   return (
     <>
@@ -88,12 +110,22 @@ export default function ListCards({ cards }: Props) {
             <Link to={`/card/${card.id}`} target="_blank">
               <img key={card.id} src={card.card_images[0].image_url} alt={card.name} />
             </Link>
-            <button className={style.btnFavorite} onClick={() => handleFavoriteToggle(card)}>
+            {isLoggedIn && (
+              <button className={style.btnFavorite} onClick={() => handleFavoriteToggle(card)}>
               {isFavorite(card)
                 ? <img src={blackHeart} alt="Desfavoritar" />
                 : <img src={whiteHeart} alt="Favoritar" />
               }
-            </button>
+              </button>
+            )}
+            {isLoggedIn && (
+              <button className={style.btnDeck} onClick={() => handleDeckToggle(card)}>
+                {isDeck(card)
+                ? <img src={addIcon} alt="Adicionar ao Deck" />
+                : <img src={removeIcon} alt="Remover do deck" />
+              }
+              </button>
+            )}
           </div>
         ))}
       </section>

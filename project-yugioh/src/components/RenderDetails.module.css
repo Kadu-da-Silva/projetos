@@ -1,6 +1,19 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Ysabeau+SC:wght@300;600&display=swap');
 
+.section {
+  border: 10px solid #6f7082;
+  border-radius: 3px;
+  box-shadow: 0 0 20px black;
+  font-family: 'Ysabeau SC', sans-serif;
+  text-align: center;
+  width: 750px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 30px;
+}
+
 .containerName {
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3), -4px -4px 10px rgba(255, 255, 255, 0.3);
   display: flex;
@@ -163,14 +176,6 @@
 
 .containerImageCard img:hover {
   width: auto;
-}
-
-.section {
-  border: 10px solid #6f7082;
-  border-radius: 3px;
-  box-shadow: 0 0 20px black;
-  font-family: 'Ysabeau SC', sans-serif;
-  margin-top: 80px;
 }
 
 .normal {

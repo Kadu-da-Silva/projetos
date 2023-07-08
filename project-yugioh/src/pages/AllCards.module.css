@@ -1,3 +1,8 @@
+* {
+  align-items: center;
+  text-align: center;
+}
+
 .containerFilters {
   background-color: #1a1a1a;
   display: flex;

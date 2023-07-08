@@ -1,9 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
-<svg fill="#e4111c" width="79px" height="79px" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" stroke="#e4111c">
-<g id="SVGRepo_bgCarrier" stroke-width="0"/>
-<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-<g id="SVGRepo_iconCarrier">
-<path d="M26.996 12.898c-.064-2.207-1.084-4.021-2.527-5.13-1.856-1.428-4.415-1.69-6.542-.132-.702.516-1.359 1.23-1.927 2.168-.568-.938-1.224-1.652-1.927-2.167-2.127-1.559-4.685-1.297-6.542.132-1.444 1.109-2.463 2.923-2.527 5.13-.035 1.172.145 2.48.788 3.803 1.01 2.077 5.755 6.695 10.171 10.683l.035.038.002-.002.002.002.036-.038c4.415-3.987 9.159-8.605 10.17-10.683.644-1.323.822-2.632.788-3.804z"/>
-</g>
-</svg>
+<!-- Creator: CorelDRAW 2021 (64 Bit) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="10.6667in" height="8in" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 10666.66 8000"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlns:xodm="http://www.corel.com/coreldraw/odm/2003">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:black;stroke-width:23.22;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .fil0 {fill:black}
+   ]]>
+  </style>
+ </defs>
+ <g id="Camada_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="heart-svgrepo-com_x0020__x0028_1_x0029_.svg">
+   <g id="SVGRepo_bgCarrier">
+   </g>
+   <g id="SVGRepo_tracerCarrier">
+   </g>
+   <g id="SVGRepo_iconCarrier">
+    <path class="fil0 str0" d="M9903.21 628.25c0,-131.29 -106.43,-237.72 -237.72,-237.72 -86.43,0 -161.87,46.28 -203.47,115.27 -41.61,-68.98 -117.04,-115.27 -203.47,-115.27 -131.29,0 -237.72,106.43 -237.72,237.72 0,30.01 5.8,58.61 15.94,85.05 78.6,226.09 425.24,474.2 425.24,474.2 0,0 346.64,-248.1 425.24,-474.2 10.15,-26.44 15.94,-55.04 15.94,-85.05z"/>
+   </g>
+  </g>
+ </g>
+</svg>
