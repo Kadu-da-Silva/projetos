@@ -1,6 +1,6 @@
 # Projetos Front-End
 
-Este é um repositório que cintém meus projetos com foco em Front-End, desenvolvidos para demonstrar minhas habilidades e conhecimentos.
+Este é um repositório que contém meus projetos com foco em Front-End, desenvolvidos para demonstrar minhas habilidades e conhecimentos.
 Habilidades essas adquiridas com muito foco e empenho durante minha jornada no curso da Trybe de Desenvolvimento Web e na graduação em Ciências da Computação pela Faculdade Descomplica,
 sendo ambas com foco em Desenvolvimento FullStack.
 
